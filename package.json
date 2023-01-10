@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.17.15",
     "@types/jest": "^29.2.5",
     "@types/jsonwebtoken": "^9.0.0",
     "@types/node": "^18.11.18",
@@ -27,6 +28,5 @@
   "scripts": {
     "typeorm": "typeorm-ts-node-commonjs",
     "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest --verbose --runInBand"
-     
   }
 }
