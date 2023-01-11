@@ -1,6 +1,7 @@
 import { compare } from "bcryptjs"
 import jwt from "jsonwebtoken"
 import AppDataSource from "../../data-source"
+import { User } from "../../entities/user.entity"
 import AppError from "../../errors/AppError"
 
 const sessionUserService = async(userData) => {

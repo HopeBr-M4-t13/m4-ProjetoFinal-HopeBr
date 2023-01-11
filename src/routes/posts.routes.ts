@@ -1,3 +1,5 @@
+import {Router} from "express"
+
 const postRoutes = Router();
 
 postRoutes.post("");
