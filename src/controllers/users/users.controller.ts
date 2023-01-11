@@ -1,5 +1,5 @@
 import {Request, Response} from "express"
-import { IUserRequest, IUserUpdate } from "../../interfaces/users"
+import { IUserRequest, IUserUpdate } from "../../interfaces/users/users.interface"
 import createUserService from "../../services/users/createUser.service"
 import deleteUserService from "../../services/users/deleteUser.service"
 import listAllUsersService from "../../services/users/listAllUsers.service"
