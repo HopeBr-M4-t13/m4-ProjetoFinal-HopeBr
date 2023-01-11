@@ -4,6 +4,7 @@ import { Donation } from "../../entities/donation.entity";
 import { Image } from "../../entities/image.entity";
 import { User } from "../../entities/user.entity";
 import { IDonationRequest } from "../../interfaces/donations/donations.interface";
+import { returnDonationSerializer } from "../../serializers/donations.serializers";
 
 const createDonationService = async (data: IDonationRequest, userId: string): Promise<Donation> => {
     const donationsRepository = AppDataSource.getRepository(Donation)
@@ -16,17 +17,10 @@ const createDonationService = async (data: IDonationRequest, userId: string): Pr
     withDeleted: true
     })
 
-    let image = await imageRepository.findOne({
+    const image = await imageRepository.findOne({
         where: { imageUrl: data.image },
         withDeleted: true
     })
-
-    if(!image && data.image){
-       image = imageRepository.create({
-        imageUrl: data.image
-       })
-       await imageRepository.save(image)
-    }
 
     const category = await categoryRepository.findOne({
         where: { id: data.category },
@@ -41,6 +35,10 @@ const createDonationService = async (data: IDonationRequest, userId: string): Pr
     })
 
     await donationsRepository.save(createDonation)
+
+    const dataResponse = await returnDonationSerializer.validate(createDonation, {
+        stripUnknown: true
+    })
 
     return createDonation
 }
