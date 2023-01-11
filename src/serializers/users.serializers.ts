@@ -1,6 +1,6 @@
 import * as  yup from "yup"
 import {SchemaOf} from "yup"
-import { IUserRequest, IUserResponse } from "../interfaces/users"
+import { IUserRequest, IUserResponse } from "../interfaces/users/users.interface"
 
 export const userRequestSerializer: SchemaOf<IUserRequest> = yup.object().shape({
     name: yup.string().required(),
@@ -8,7 +8,7 @@ export const userRequestSerializer: SchemaOf<IUserRequest> = yup.object().shape(
     password: yup.string().required(),
     contact: yup.string().required(),
     isAdmin: yup.boolean().required(),
-    image: yup.string().notRequired(),
+    image: yup.string().required(),
     address: yup.object({
         city: yup.string().required(),
         state: yup.string().required(),
