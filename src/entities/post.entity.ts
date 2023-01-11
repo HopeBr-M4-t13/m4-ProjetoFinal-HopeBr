@@ -14,10 +14,10 @@ export class Post {
 	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
-	@Column()
+	@Column({ nullable: false })
 	title: string;
 
-	@Column()
+	@Column({ nullable: false })
 	content: string;
 
 	@Column({ default: false })

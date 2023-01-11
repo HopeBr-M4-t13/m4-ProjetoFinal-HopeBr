@@ -10,7 +10,7 @@ import {
 	JoinColumn,
 	OneToMany,
 } from "typeorm";
-import { hashSync } from "bcryptjs";
+import { getRounds, hashSync } from "bcryptjs";
 import { Image } from "./image.entity";
 import { Donation } from "./donation.entity";
 import { Post } from "./post.entity";
@@ -21,16 +21,16 @@ export class User {
 	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
-	@Column()
+	@Column({ nullable: false })
 	name: string;
 
-	@Column({ unique: true })
+	@Column({ nullable: false, unique: true })
 	email: string;
 
-	@Column()
+	@Column({ nullable: false })
 	password: string;
 
-	@Column()
+	@Column({ nullable: false })
 	contact: string;
 
 	@Column({ default: true })
@@ -62,6 +62,9 @@ export class User {
 	@BeforeUpdate()
 	@BeforeInsert()
 	hashPassword() {
-		this.password = hashSync(this.password, 10);
+		const isEncrypted = getRounds(this.password);
+		if (!isEncrypted) {
+			this.password = hashSync(this.password, 10);
+		}
 	}
 }
