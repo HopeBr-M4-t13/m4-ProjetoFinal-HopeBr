@@ -6,7 +6,7 @@ import { userResponseSerializer } from "../../serializers/users.serializers"
 const listUserService = async (userId: string): Promise<IUserResponse> => {
     const usersRep = AppDataSource.getRepository(User)
 
-    const user = usersRep.findOneBy({
+    const user = await usersRep.findOneBy({
         id: userId
     })
 

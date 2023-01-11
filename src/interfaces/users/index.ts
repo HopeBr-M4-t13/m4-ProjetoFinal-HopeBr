@@ -24,8 +24,8 @@ export interface IUserResponse {
     isActive: boolean
     imageId?: string
     addressId?: string
-    createAt: Date
-    updateAt: Date
+    createdAt: Date
+    updatedAt: Date
 }
 
 export interface IUserUpdate {
