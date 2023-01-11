@@ -10,7 +10,7 @@ const validateData = (Schema: AnySchema) => async (req: Request, res: Response, 
         }) 
         req.body = validatedBody
     } catch (error) {
-        throw new AppError("Email or password invalid", 404 )  
+        throw new AppError(error.errors, 400)  
     }
 
     return next()

@@ -26,8 +26,8 @@ export const userResponseSerializer: SchemaOf<IUserResponse> = yup.object().shap
     isActive: yup.boolean().notRequired(),
     imageId: yup.string().notRequired(),
     addressId: yup.string().notRequired(),
-    createAt: yup.date().required(),
-    updateAt: yup.date().notRequired()
+    createdAt: yup.date().required(),
+    updatedAt: yup.date().required()
 })
 
 export const userUpdateSerializer = yup.object().shape({
