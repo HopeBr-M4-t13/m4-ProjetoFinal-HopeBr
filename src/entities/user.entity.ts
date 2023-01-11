@@ -10,7 +10,7 @@ import {
 	JoinColumn,
 	OneToMany,
 } from "typeorm";
-import { hashSync } from "bcryptjs";
+import { getRounds, hashSync } from "bcryptjs";
 import { Image } from "./image.entity";
 import { Donation } from "./donation.entity";
 import { Post } from "./post.entity";
@@ -49,7 +49,7 @@ export class User {
 	@JoinColumn()
 	address: Address;
 
-	@OneToMany(() => Donation, (donation) => donation.user)
+	@OneToMany(() => Donation, (donation) => donation.user, { eager: true })
 	donations: Donation;
 
 	@OneToMany(() => Post, (post) => post.user)
@@ -61,7 +61,10 @@ export class User {
 
 	@BeforeUpdate()
 	@BeforeInsert()
-	hashPassword() {
-		this.password = hashSync(this.password, 10);
-	}
+    hashPassword(){
+        const isEncrypted = getRounds(this.password)
+        if(!isEncrypted){
+            this.password = hashSync(this.password, 10)
+        }
+    }
 }

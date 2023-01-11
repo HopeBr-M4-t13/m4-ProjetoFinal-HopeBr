@@ -23,7 +23,7 @@ export class Donation {
 	@Column()
 	description: string;
 
-	@Column()
+	@Column({ default: false })
 	donated: boolean;
 
 	@CreateDateColumn()

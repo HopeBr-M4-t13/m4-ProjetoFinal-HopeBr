@@ -5,7 +5,7 @@ import { userRequestSerializer, userUpdateSerializer } from "../serializers/user
 
 const userRoutes = Router();
 
-userRoutes.post("", validateData(userRequestSerializer), createUserController);
+userRoutes.post("",validateData(userRequestSerializer), createUserController);
 userRoutes.get("", listAllUsersController);
 userRoutes.get("/:id", listUserController);
 userRoutes.patch("/:id", validateData(userUpdateSerializer), updateUserController);
