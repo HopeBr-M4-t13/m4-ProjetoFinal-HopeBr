@@ -29,3 +29,5 @@ export const userResponseSerializer: SchemaOf<IUserResponse> = yup.object().shap
     createAt: yup.date().required(),
     updateAt: yup.date().notRequired()
 })
+
+export const listUsersResponse: SchemaOf<IUserResponse[]> = yup.array(userResponseSerializer)

@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { createUserController } from "../controllers/users/users.controller";
+import { createUserController, listAllUsersController, listUserController } from "../controllers/users/users.controller";
 import validateData from "../middlewares/validateData.middleware";
 import { userRequestSerializer } from "../serializers/users.serializers";
 
 const userRoutes = Router();
 
 userRoutes.post("", validateData(userRequestSerializer), createUserController);
-userRoutes.get("");
-userRoutes.get("/:id");
+userRoutes.get("", listAllUsersController);
+userRoutes.get("/:id", listUserController);
 userRoutes.patch("/:id");
 userRoutes.delete("/:id");
 
