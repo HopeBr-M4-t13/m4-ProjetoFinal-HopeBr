@@ -1,9 +1,9 @@
 import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
-import { iCategoryResponse } from "../../interfaces/category/category.interface";
+import { ICategoryResponse } from "../../interfaces/category/category.interface";
 import { listAllCategorySerilizer } from "../../serializers/category.serializer";
 
-const listCategoryService = async (): Promise<iCategoryResponse[]> => {
+const listCategoryService = async (): Promise<ICategoryResponse[]> => {
   const cartegoryRepo = AppDataSource.getRepository(Category)
 
   const listCategory = await cartegoryRepo.find()
