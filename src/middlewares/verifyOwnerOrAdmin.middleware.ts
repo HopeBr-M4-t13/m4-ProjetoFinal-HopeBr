@@ -13,7 +13,7 @@ const ensureOwnerOrAdminMiddleware = async (request: Request, response: Response
     if (users.id === donations.user.id) {
       return next();
     }
-    throw new AppError("User is not Admin", 404);
+    throw new AppError("User not have permission", 404);
   }
   return next();
 };
