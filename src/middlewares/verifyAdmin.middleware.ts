@@ -8,8 +8,9 @@ const ensureIsAdminMiddleware = async (request: Request, response: Response, nex
   const users = await userRepository.findOne({ where: { id: request.user.id }});
 
   if (!users.isAdmin) {
-    throw new AppError("User is not admin", 403);
+    throw new AppError("User is not admin", 400);
   }
+  
   return next();
 };
 
