@@ -13,4 +13,10 @@ interface iPostResponse {
   updatedAt: string
 }
 
-export { iPostRequest, iPostResponse }
+interface iEditPostRequest {
+  title?: string,
+  content?: string,
+  category?: string
+}
+
+export { iPostRequest, iPostResponse, iEditPostRequest }

@@ -1,12 +1,13 @@
 import {Router} from "express"
-import { createPostController } from "../controllers/posts/posts.controller";
+import { createPostController, deletePostController, editPostController, listPostController, listUniquePostController } from "../controllers/posts/posts.controller";
+import ensureAuthMiddleware from "../middlewares/verifyAuth.middleware";
 
 const postRoutes = Router();
 
-postRoutes.post("", createPostController);
-postRoutes.get("");
-postRoutes.get("/:id");
-postRoutes.patch("/:id");
-postRoutes.delete("/:id");
+postRoutes.post("", ensureAuthMiddleware, createPostController);
+postRoutes.get("", listPostController);
+postRoutes.get("/:id", listUniquePostController);
+postRoutes.patch("/:id", editPostController);
+postRoutes.delete("/:id", deletePostController);
 
 export default postRoutes;
