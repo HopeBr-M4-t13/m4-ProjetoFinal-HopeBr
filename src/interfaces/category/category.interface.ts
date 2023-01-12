@@ -1,12 +1,10 @@
-interface iCategoryRequest {
-  name: string,
+export interface ICategoryRequest{
+    name: string 
 }
 
-interface iCategoryResponse {
-  "id": string,
-  "name": string,
-  "createdAt": string,
-  "updatedAt": string
+export interface ICategoryResponse{
+    id: string,
+    imageUrl: string,
+    createdAt: Date
+    updatedAt: Date
 }
-
-export { iCategoryRequest, iCategoryResponse }

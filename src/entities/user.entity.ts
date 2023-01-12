@@ -49,7 +49,7 @@ export class User {
 	@JoinColumn()
 	address: Address;
 
-	@OneToMany(() => Donation, (donation) => donation.user)
+	@OneToMany(() => Donation, (donation) => donation.user, { eager: true })
 	donations: Donation;
 
 	@OneToMany(() => Post, (post) => post.user)
@@ -61,6 +61,7 @@ export class User {
 
 	@BeforeUpdate()
 	@BeforeInsert()
+
 	hashPassword() {
 		const isEncrypted = getRounds(this.password);
 		if (!isEncrypted) {
