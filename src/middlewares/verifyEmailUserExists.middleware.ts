@@ -13,7 +13,7 @@ export const verifyUserExistsMiddleware = async(req: Request, res: Response, nex
 
 
     if(userExists){
-        throw new AppError('This user already exists', 409);
+        throw new AppError('Email alredy is exists', 409);
     }
 
     return next();

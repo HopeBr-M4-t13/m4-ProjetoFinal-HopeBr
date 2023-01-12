@@ -48,6 +48,7 @@ userRoutes.patch(
     ensureAuthMiddleware,
     ensureOwnerOrAdminMiddleware,
     verifyBodyUpdateMiddleware,
+    verifyUserExistsMiddleware,
     validateData(userUpdateSerializer),
     updateUserController
 );
