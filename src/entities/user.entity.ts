@@ -21,16 +21,16 @@ export class User {
 	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
-	@Column()
+	@Column({ nullable: false })
 	name: string;
 
-	@Column({ unique: true })
+	@Column({ nullable: false, unique: true })
 	email: string;
 
-	@Column()
+	@Column({ nullable: false })
 	password: string;
 
-	@Column()
+	@Column({ nullable: false })
 	contact: string;
 
 	@Column({ default: true })
@@ -61,10 +61,11 @@ export class User {
 
 	@BeforeUpdate()
 	@BeforeInsert()
-    hashPassword(){
-        const isEncrypted = getRounds(this.password)
-        if(!isEncrypted){
-            this.password = hashSync(this.password, 10)
-        }
-    }
+
+	hashPassword() {
+		const isEncrypted = getRounds(this.password);
+		if (!isEncrypted) {
+			this.password = hashSync(this.password, 10);
+		}
+	}
 }
