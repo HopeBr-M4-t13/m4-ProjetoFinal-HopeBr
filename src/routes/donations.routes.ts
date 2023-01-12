@@ -14,8 +14,8 @@ const donationRoutes = Router();
 
 donationRoutes.post("",ensureAuthMiddleware, validateData(donationSerializer), verifyNameDonationMiddleware, verifyImgAlredyExists, createImageMiddleware, createDonationController);
 donationRoutes.get("", listAllDonationsController);
-donationRoutes.get("/:id", ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, verifyIdDonationMiddleware, listDonationController);
-donationRoutes.patch("/:id", ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, verifyIdDonationMiddleware, verifyNameDonationMiddleware, validateData(donationUpdateSerializer), updateDonationController);
-donationRoutes.delete("/:id",ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, verifyIdDonationMiddleware, deleteDonationController);
+donationRoutes.get("/:id", verifyIdDonationMiddleware, ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, listDonationController);
+donationRoutes.patch("/:id", verifyIdDonationMiddleware, ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, verifyNameDonationMiddleware, validateData(donationUpdateSerializer), updateDonationController);
+donationRoutes.delete("/:id", verifyIdDonationMiddleware, ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, deleteDonationController);
 
 export default donationRoutes;

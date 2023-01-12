@@ -6,46 +6,58 @@ import { Image } from "../../entities/image.entity";
 const updateDonationService = async (data, paramsId: string ) => {
     const donationsRep = AppDataSource.getRepository(Donation)
     const imagesRep = AppDataSource.getRepository(Image)
-    const categoryRep = AppDataSource.getRepository(Category)
+    const categoryRep = AppDataSource.getRepository(Category)  
 
     const findDonation = await donationsRep.findOne({
-        where: { id: paramsId }
-    })
-
-    if(data.image){
-    const findImage = await imagesRep.findOne({
-        where: { id: findDonation.image.id }
+        where: { id: paramsId },
+        relations: { image: true, category: true }
     })
    
-    const updateImage = imagesRep.create({
-        imageUrl: data.image,
-        ...findImage
-    })
-    await imagesRep.save(updateImage)
-    data.image = updateImage
-    }
+    if(data.image){
+    const findImage = await imagesRep.findOne({
+        where: { id: findDonation.image?.id}
+    })  
+        if(findImage){
+            const updateImage = imagesRep.create({
+                ...findImage,
+                imageUrl: data.image
+            })
+            await imagesRep.save(updateImage)
+            data.image = updateImage
+            }
+        }
+        const newImage = imagesRep.create(data.image)
+        await imagesRep.save(newImage)
+        data.image = newImage
 
     if(data.category){
     const findCategory = await categoryRep.findOne({
-        where: { id: findDonation.category.id }
+        where: { id: findDonation.category?.id }
     })
-       
-    const updateCategory = categoryRep.create({
-        name: data.category,
-        ...findCategory
-    })
-    await categoryRep.save(updateCategory)
-    data.category = updateCategory
-    }
+        if(findCategory){  
+            const updateCategory = categoryRep.create({
+            ...findCategory,
+            name: data.category
+        })
+        await categoryRep.save(updateCategory)
+        data.category = updateCategory
+        }
     
-    const updateUser = donationsRep.create({
+        const newCategory = categoryRep.create(data.category)
+        await categoryRep.save(newCategory)
+        data.category = newCategory
+    }
+       
+  
+    
+    const donationUpdate = donationsRep.create({
         ...findDonation,
         ...data
     })
 
-    await donationsRep.save(updateUser)
+    await donationsRep.save(donationUpdate)
 
-    return updateUser
+    return donationUpdate
 }
 
 export default updateDonationService
