@@ -12,7 +12,7 @@ const donationIsActive = async (request: Request, response: Response, next: Next
   })
 
   if(findDonation.isActive == false){
-    throw new AppError("Donation is not active", 403);
+    throw new AppError("Donation is not active", 400);
   }
 
   return next();
