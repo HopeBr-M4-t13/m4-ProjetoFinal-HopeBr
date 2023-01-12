@@ -1,10 +1,11 @@
 import { User } from "../../entities/user.entity";
 import AppDataSource from "../../data-source";
-import { editPostSerializer } from "../../serializers/post.serializer";
+import { createPostSerializerResponse, editPostSerializer } from "../../serializers/post.serializer";
 import { Category } from "../../entities/category.entity";
 import { Post } from "../../entities/post.entity";
+import { iEditPostRequest, iPostResponse } from "../../interfaces/posts/posts.interface";
 
-const editPostService = async (id, postData) => {
+const editPostService = async (id: string, postData: any): Promise<iPostResponse> => {
 
   const postRepo = AppDataSource.getRepository(Post)
   const categoryRepo = AppDataSource.getRepository(Category)
@@ -36,7 +37,7 @@ const editPostService = async (id, postData) => {
 
   await postRepo.save(editedPost)
 
-  const postToReturn = await editPostSerializer.validate(editedPost, {
+  const postToReturn = await createPostSerializerResponse.validate(editedPost, {
     stripUnknown: true
   })
 

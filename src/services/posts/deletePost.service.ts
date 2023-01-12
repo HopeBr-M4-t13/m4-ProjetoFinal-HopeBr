@@ -1,7 +1,7 @@
 import AppDataSource from "../../data-source";
 import { Post } from "../../entities/post.entity";
 
-const deletePostService = async (id) => {
+const deletePostService = async(id: string) => {
 
   const postRepo = AppDataSource.getRepository(Post)
 
