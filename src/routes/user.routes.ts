@@ -8,6 +8,7 @@ import { userRequestSerializer, userUpdateSerializer } from "../serializers/user
 
 const userRoutes = Router();
 
+
 userRoutes.post("", validateData(userRequestSerializer), createAddressMiddleware, verifyImgAlredyExists, createImageMiddleware, createUserController);
 userRoutes.get("", listAllUsersController);
 userRoutes.get("/:id", listUserController);
