@@ -4,7 +4,7 @@ export interface ICategoryRequest{
 
 export interface ICategoryResponse{
     id: string,
-    imageUrl: string,
+    name: string,
     createdAt: Date
     updatedAt: Date
 }

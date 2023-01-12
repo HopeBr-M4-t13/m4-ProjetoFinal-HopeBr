@@ -1,6 +1,6 @@
 import * as  yup from "yup"
 import { SchemaOf } from "yup"
-import { IDonationRequest, IDonationResponse } from "../../src/interfaces/donations/donations.interface";
+import { IDonationRequest, IDonationResponse, IResponseCreateDonation } from "../../src/interfaces/donations/donations.interface";
 
 export const donationSerializer: SchemaOf<IDonationRequest> = yup.object().shape({
     category: yup.string().required(),
@@ -16,6 +16,7 @@ export const returnDonationSerializer: SchemaOf<IDonationResponse> = yup.object(
     description: yup.string(),
     category: yup.string(),
     donated: yup.boolean(),
+    isActive: yup.boolean(),
     image: yup.string(),
     user: yup.string(),
     createdAt: yup.date(),
@@ -32,12 +33,38 @@ export const donationUpdateSerializer = yup.object().shape({
     donated: yup.boolean()
 })
 
-export const responseDonationUpdateSerializer = yup.object().shape({
+export const responseDonationUpdateSerializer:SchemaOf<IResponseCreateDonation> = yup.object().shape({
     id: yup.string(),
     name: yup.string(),
     description: yup.string(),
+    donated: yup.boolean(),
+    isActive: yup.boolean(),
     createdAt: yup.date(),
     updatedAt: yup.date(),
+    image: yup.object({
+        id: yup.string(),
+        imageUrl: yup.string(),
+        createdAt: yup.date(),
+        updatedAt: yup.date(),
+    }).nullable(true),
+    category: yup.object({
+        id: yup.string(),
+        name: yup.string(),
+        createdAt: yup.date(),
+        updatedAt: yup.date(),
+    }).nullable(true),
+    user: yup.object({
+        id: yup.string(),
+        name: yup.string(),
+        email: yup.string(),
+        contact: yup.string(),
+        isAdmin: yup.boolean(),
+        isActive: yup.boolean(),
+        image: yup.string(),
+        address: yup.string(),
+        createdAt: yup.date(),
+        updatedAt: yup.date()
+    }),
 })
 
 

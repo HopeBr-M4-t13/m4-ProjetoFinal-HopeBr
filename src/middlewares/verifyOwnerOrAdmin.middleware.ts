@@ -6,7 +6,7 @@ import AppError from "../errors/AppError";
 
 const ensureOwnerOrAdminMiddleware = async (request: Request, response: Response, next: NextFunction) => {
   const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.findOne({ where: { id: request.user.id }, withDeleted: true });
+  const users = await userRepository.findOne({ where: { id: request.user.id }});
  
   if (!users.isAdmin) {
     if (users.id === request.params.id) {
