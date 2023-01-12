@@ -26,7 +26,9 @@ export const listAllDonationsResponse: SchemaOf<IDonationResponse[]> = yup.array
 
 export const donationUpdateSerializer = yup.object().shape({
     name: yup.string(),
-    description: yup.string()
+    description: yup.string(),
+    category: yup.string(),
+    image: yup.string()
 })
 
 export const responseDonationUpdateSerializer = yup.object().shape({
@@ -34,7 +36,7 @@ export const responseDonationUpdateSerializer = yup.object().shape({
     name: yup.string(),
     description: yup.string(),
     createdAt: yup.date(),
-    updatedAt: yup.date()
+    updatedAt: yup.date(),
 })
 
 

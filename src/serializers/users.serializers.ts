@@ -34,7 +34,7 @@ export const userUpdateSerializer = yup.object().shape({
     name: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
     password: yup.string().notRequired(),
-    contact: yup.string().notRequired()
+    contact: yup.string().notRequired(),
 })
 
 export const listUsersResponse: SchemaOf<IUserResponse[]> = yup.array(userResponseSerializer)
