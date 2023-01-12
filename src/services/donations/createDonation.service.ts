@@ -30,7 +30,7 @@ const createDonationService = async (data: IDonationRequest, userId: string): Pr
         ...data,
         user: user,
         image: image,
-        category: category
+        category: category,
     })
 
     await donationsRepository.save(createDonation)

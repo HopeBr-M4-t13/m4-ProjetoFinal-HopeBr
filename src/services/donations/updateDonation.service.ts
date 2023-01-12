@@ -39,8 +39,8 @@ const updateDonationService = async (data, paramsId: string ) => {
     }
     
     const updateUser = donationsRep.create({
-        ...data,
-        ...findDonation
+        ...findDonation,
+        ...data
     })
 
     await donationsRep.save(updateUser)
