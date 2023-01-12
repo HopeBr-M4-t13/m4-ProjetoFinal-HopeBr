@@ -18,6 +18,7 @@ export interface IUserRequest {
 
 export interface IUserResponse {
     id: string
+    name: string
     email: string
     contact: string
     isAdmin: boolean

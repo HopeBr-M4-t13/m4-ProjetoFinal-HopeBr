@@ -15,12 +15,13 @@ export const userRequestSerializer: SchemaOf<IUserRequest> = yup.object().shape(
         zipCode: yup.string().required(),
         district: yup.string().required(),
         number: yup.string().required()
-    }).notRequired(),
+    }).required(),
 })
 
 export const userResponseSerializer: SchemaOf<IUserResponse> = yup.object().shape({
     id: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
+    name: yup.string().notRequired(),
     contact: yup.string().notRequired(),
     isAdmin: yup.boolean().notRequired(),
     isActive: yup.boolean().notRequired(),
