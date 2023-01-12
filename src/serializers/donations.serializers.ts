@@ -4,8 +4,8 @@ import { IDonationRequest, IDonationResponse } from "../../src/interfaces/donati
 
 export const donationSerializer: SchemaOf<IDonationRequest> = yup.object().shape({
     category: yup.string().required(),
-    donated: yup.boolean(),
-    image: yup.string(),
+    donated: yup.boolean().notRequired(),
+    image: yup.string().notRequired(),
     name: yup.string().required(),
     description: yup.string().required()
 })
@@ -28,7 +28,8 @@ export const donationUpdateSerializer = yup.object().shape({
     name: yup.string(),
     description: yup.string(),
     category: yup.string(),
-    image: yup.string()
+    image: yup.string(),
+    donated: yup.boolean()
 })
 
 export const responseDonationUpdateSerializer = yup.object().shape({

@@ -16,10 +16,16 @@ const createDonationService = async (data: IDonationRequest, userId: string): Pr
     withDeleted: true
     })
 
-    const image = await imageRepository.findOne({
-        where: { imageUrl: data.image },
-        withDeleted: true
-    })
+    let image = {
+        imageUrl: data.image
+    }
+
+    if(data.image){
+        image = imageRepository.create({
+            imageUrl: data.image
+        })
+        await imageRepository.save(image)
+    }
 
     const category = await categoryRepository.findOne({
         where: { id: data.category },
@@ -32,7 +38,6 @@ const createDonationService = async (data: IDonationRequest, userId: string): Pr
         image: image,
         category: category,
     })
-
     await donationsRepository.save(createDonation)
 
     return createDonation
