@@ -4,16 +4,18 @@ import createImageMiddleware from "../middlewares/createImage.middleware";
 import validateData from "../middlewares/validateData.middleware";
 
 import ensureAuthMiddleware from "../middlewares/verifyAuth.middleware";
+import verifyIdDonationMiddleware from "../middlewares/verifyIdDonation.middleware";
 import verifyImgAlredyExists from "../middlewares/verifyImgAlreadyExists.middlwware";
+import verifyNameDonationMiddleware from "../middlewares/verifyNameDonation.middleware";
 import ensureOwnerOrAdminMiddleware from "../middlewares/verifyOwnerOrAdmin.middleware";
 import { donationSerializer, donationUpdateSerializer } from "../serializers/donations.serializers";
 
 const donationRoutes = Router();
 
-donationRoutes.post("",ensureAuthMiddleware, validateData(donationSerializer), verifyImgAlredyExists, createImageMiddleware, createDonationController);
+donationRoutes.post("",ensureAuthMiddleware, validateData(donationSerializer), verifyNameDonationMiddleware, verifyImgAlredyExists, createImageMiddleware, createDonationController);
 donationRoutes.get("", listAllDonationsController);
-donationRoutes.get("/:id", ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, listDonationController);
-donationRoutes.patch("/:id", ensureAuthMiddleware, ensureOwnerOrAdminMiddleware ,validateData(donationUpdateSerializer), updateDonationController);
-donationRoutes.delete("/:id",ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, deleteDonationController);
+donationRoutes.get("/:id", ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, verifyIdDonationMiddleware, listDonationController);
+donationRoutes.patch("/:id", ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, verifyIdDonationMiddleware, verifyNameDonationMiddleware, validateData(donationUpdateSerializer), updateDonationController);
+donationRoutes.delete("/:id",ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, verifyIdDonationMiddleware, deleteDonationController);
 
 export default donationRoutes;
