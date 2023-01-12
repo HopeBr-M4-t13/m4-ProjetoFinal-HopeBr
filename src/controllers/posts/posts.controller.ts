@@ -38,7 +38,7 @@ const deletePostController = async (req: Request, res: Response) => {
   const postId = req.params.id
   const post = await deletePostService(postId)
 
-  return res.status(200).json({message: 'post deleted'})
+  return res.status(200).json(post)
 }
 
 export { createPostController, listPostController, listUniquePostController, editPostController, deletePostController }

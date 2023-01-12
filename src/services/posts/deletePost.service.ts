@@ -9,9 +9,9 @@ const deletePostService = async (id) => {
     id: id
   })
 
-  await postRepo.softRemove(postFound)
+  await postRepo.remove(postFound)
 
-  return {}
+  return {message: "post removed sucessfully"}
 }
 
 export default deletePostService

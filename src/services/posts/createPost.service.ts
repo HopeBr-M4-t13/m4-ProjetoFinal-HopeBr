@@ -1,8 +1,9 @@
 import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
 import { Post } from "../../entities/post.entity";
+import { iPostRequest } from "../../interfaces/posts/posts.interface";
 
-const createPostService = async (data, id) => {
+const createPostService = async (data: any, id: string) => {
   const usersRepo = AppDataSource.getRepository(Post)
   const categoryRepo = AppDataSource.getRepository(Category)
 

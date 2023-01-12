@@ -1,13 +1,18 @@
 import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
-import { Post } from "../../entities/post.entity";
+import { iCategoryResponse } from "../../interfaces/category/category.interface";
+import { listAllCategorySerilizer } from "../../serializers/category.serializer";
 
-const listCategoryService = async () => {
-  const usersRep = AppDataSource.getRepository(Category)
+const listCategoryService = async (): Promise<iCategoryResponse[]> => {
+  const cartegoryRepo = AppDataSource.getRepository(Category)
 
-  const listPost = await usersRep.find()
+  const listCategory = await cartegoryRepo.find()
 
-  return listPost
+  const categoryList = listAllCategorySerilizer.validate(listCategory, {
+    stripUnknown: true
+  })
+
+  return categoryList
 }
 
 export default listCategoryService;

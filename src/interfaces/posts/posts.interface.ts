@@ -1,7 +1,8 @@
 interface iPostRequest {
   title: string,
   content: string,
-  category: string
+  category?: string,
+  user?: string
 }
 
 interface iPostResponse {
