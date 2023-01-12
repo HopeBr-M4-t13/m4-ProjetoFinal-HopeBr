@@ -1,8 +1,9 @@
 import {Router} from "express"
+import { createPostController } from "../controllers/posts/posts.controller";
 
 const postRoutes = Router();
 
-postRoutes.post("");
+postRoutes.post("", createPostController);
 postRoutes.get("");
 postRoutes.get("/:id");
 postRoutes.patch("/:id");
