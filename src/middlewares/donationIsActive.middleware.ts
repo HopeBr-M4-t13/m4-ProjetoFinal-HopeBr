@@ -1,20 +1,22 @@
 import { Request, Response, NextFunction } from "express";
+import AppError from "../errors/AppError";
 import AppDataSource from "../data-source";
 import { Donation } from "../entities/donation.entity";
-import AppError from "../errors/AppError";
 
-const verifyNameDonationMiddleware = async (request: Request, response: Response, next: NextFunction) => {
+const donationIsActive = async (request: Request, response: Response, next: NextFunction) => {
+
   const donationsRepository = AppDataSource.getRepository(Donation);
-  
+
   const findDonation = await donationsRepository.findOne({
-    where: { name: request.body.name }
+    where: { id: request.params.id }
   })
 
-  if(findDonation){
-    throw new AppError("Donation already exists!", 404)
+  if(findDonation.isActive == false){
+    throw new AppError("Donation is not active", 403);
   }
 
   return next();
+
 };
 
-export default verifyNameDonationMiddleware;
+export default donationIsActive;

@@ -25,10 +25,11 @@ const updateDonationService = async (data, paramsId: string ) => {
             await imagesRep.save(updateImage)
             data.image = updateImage
             }
-        }
+        
         const newImage = imagesRep.create(data.image)
         await imagesRep.save(newImage)
         data.image = newImage
+    }
 
     if(data.category){
     const findCategory = await categoryRep.findOne({
@@ -47,14 +48,11 @@ const updateDonationService = async (data, paramsId: string ) => {
         await categoryRep.save(newCategory)
         data.category = newCategory
     }
-       
-  
     
     const donationUpdate = donationsRep.create({
         ...findDonation,
         ...data
     })
-
     await donationsRep.save(donationUpdate)
 
     return donationUpdate
