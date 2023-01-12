@@ -17,13 +17,13 @@ export class Donation {
 	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
-	@Column()
+	@Column({ nullable: false })
 	name: string;
 
-	@Column()
+	@Column({ nullable: false })
 	description: string;
 
-	@Column()
+	@Column({ default: false })
 	donated: boolean;
 
 	@CreateDateColumn()

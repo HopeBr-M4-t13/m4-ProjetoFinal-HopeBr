@@ -19,13 +19,13 @@ export class Address {
 	@Column({ nullable: false })
 	state: string;
 
-	@Column()
+	@Column({ nullable: false })
 	zipCode: string;
 
-	@Column()
+	@Column({ nullable: false })
 	district: string;
 
-	@Column()
+	@Column({ nullable: false })
 	number: string;
 
 	@CreateDateColumn()
