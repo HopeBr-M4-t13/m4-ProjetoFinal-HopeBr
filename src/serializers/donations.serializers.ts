@@ -14,10 +14,10 @@ export const returnDonationSerializer: SchemaOf<IDonationResponse> = yup.object(
     id: yup.string(),
     name: yup.string(),
     description: yup.string(),
-    imageId: yup.string().notRequired(),
-    categoryId: yup.string().notRequired(),
+    category: yup.string(),
     donated: yup.boolean(),
-    userId: yup.string(),
+    image: yup.string(),
+    user: yup.string(),
     createdAt: yup.date(),
     updatedAt: yup.date()
 })

@@ -4,7 +4,6 @@ import { Donation } from "../../entities/donation.entity";
 import { Image } from "../../entities/image.entity";
 import { User } from "../../entities/user.entity";
 import { IDonationRequest } from "../../interfaces/donations/donations.interface";
-import { returnDonationSerializer } from "../../serializers/donations.serializers";
 
 const createDonationService = async (data: IDonationRequest, userId: string): Promise<Donation> => {
     const donationsRepository = AppDataSource.getRepository(Donation)
@@ -35,10 +34,6 @@ const createDonationService = async (data: IDonationRequest, userId: string): Pr
     })
 
     await donationsRepository.save(createDonation)
-
-    const dataResponse = await returnDonationSerializer.validate(createDonation, {
-        stripUnknown: true
-    })
 
     return createDonation
 }

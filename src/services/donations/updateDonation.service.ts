@@ -1,35 +1,51 @@
 import AppDataSource from "../../data-source";
+import { Category } from "../../entities/category.entity";
 import { Donation } from "../../entities/donation.entity";
 import { Image } from "../../entities/image.entity";
-import { responseDonationUpdateSerializer } from "../../serializers/donations.serializers";
 
 const updateDonationService = async (data, paramsId: string ) => {
-    const donationsRepository = AppDataSource.getRepository(Donation)
+    const donationsRep = AppDataSource.getRepository(Donation)
     const imagesRep = AppDataSource.getRepository(Image)
+    const categoryRep = AppDataSource.getRepository(Category)
 
-    const findDonation = await donationsRepository.findOne({
+    const findDonation = await donationsRep.findOne({
         where: { id: paramsId }
     })
 
     if(data.image){
-    const createImage = imagesRep.create({imageUrl: data.image})
-    await imagesRep.save(createImage)
+    const findImage = await imagesRep.findOne({
+        where: { id: findDonation.image.id }
+    })
+   
+    const updateImage = imagesRep.create({
+        imageUrl: data.image,
+        ...findImage
+    })
+    await imagesRep.save(updateImage)
+    data.image = updateImage
+    }
 
-    data.image = createImage
+    if(data.category){
+    const findCategory = await categoryRep.findOne({
+        where: { id: findDonation.category.id }
+    })
+       
+    const updateCategory = categoryRep.create({
+        name: data.category,
+        ...findCategory
+    })
+    await categoryRep.save(updateCategory)
+    data.category = updateCategory
     }
     
-    const updateUser = donationsRepository.create({
-        ...findDonation,
-        ...data
+    const updateUser = donationsRep.create({
+        ...data,
+        ...findDonation
     })
 
-    await donationsRepository.save(updateUser)
+    await donationsRep.save(updateUser)
 
-    const dataResponse = await responseDonationUpdateSerializer.validate(updateUser, {
-        stripUnknown: true
-    })
-
-    return dataResponse
+    return updateUser
 }
 
 export default updateDonationService

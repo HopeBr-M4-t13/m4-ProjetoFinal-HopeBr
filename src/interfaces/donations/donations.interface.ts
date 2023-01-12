@@ -1,3 +1,7 @@
+import { ICategoryResponse } from "../category/category.interface"
+import { IImageResponse } from "../image/image.interface"
+import { IUserResponse } from "../users/users.interface"
+
 export interface IDonationRequest {
     name: string
     description: string
@@ -11,9 +15,9 @@ export interface IDonationResponse {
     name: string
     description: string
     donated: boolean
-    categoryId: string
-    imageId?: string
-    userId?: string
+    category: string
+    image?: string
+    user?: string
     createdAt: Date
     updatedAt: Date
 }
