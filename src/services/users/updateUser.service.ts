@@ -6,8 +6,14 @@ import { userResponseSerializer } from "../../serializers/users.serializers";
 const updateUserService = async (userId: string , dataUpdate: IUserUpdate): Promise<IUserResponse> => {
     const usersRep = AppDataSource.getRepository(User)
 
-    const findUser = await usersRep.findOneBy({
-        id: userId
+    const findUser = await usersRep.findOne({
+        where: {
+            id: userId
+        }, 
+        relations: {
+            address: true,
+            image: true
+        }
     })
 
     const updateUser = usersRep.create({

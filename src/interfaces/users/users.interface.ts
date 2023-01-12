@@ -1,4 +1,6 @@
-export interface IAddress {
+// Request
+
+export interface IAddressRequest {
     city: string
     state: string
     zipCode: string
@@ -13,7 +15,27 @@ export interface IUserRequest {
     contact: string
     isAdmin: boolean
     image?: string
-    address?: IAddress 
+    address?: IAddressRequest 
+}
+
+//Response
+
+export interface IAddressResponse {
+    id: string
+    city: string
+    state: string
+    zipCode: string
+    district: string
+    number: string
+    createdAt: Date
+    updatedAt: Date
+}
+
+export interface IImageResponse {
+    id: string
+    imageUrl: string
+    createdAt: Date
+    updatedAt: Date
 }
 
 export interface IUserResponse {
@@ -23,11 +45,13 @@ export interface IUserResponse {
     contact: string
     isAdmin: boolean
     isActive: boolean
-    imageId?: string
-    addressId?: string
+    image: IImageResponse
+    address: IAddressResponse
     createdAt: Date
     updatedAt: Date
 }
+
+//Update
 
 export interface IUserUpdate {
     name?: string

@@ -25,10 +25,24 @@ export const userResponseSerializer: SchemaOf<IUserResponse> = yup.object().shap
     contact: yup.string().notRequired(),
     isAdmin: yup.boolean().notRequired(),
     isActive: yup.boolean().notRequired(),
-    imageId: yup.string().notRequired(),
-    addressId: yup.string().notRequired(),
-    createdAt: yup.date().required(),
-    updatedAt: yup.date().required()
+    image: yup.object({
+        id: yup.string().notRequired(),
+        imageUrl: yup.string().notRequired(),
+        createdAt: yup.date().notRequired(),
+        updatedAt: yup.date().notRequired()
+    }).notRequired(),
+    address: yup.object({
+        id: yup.string().notRequired(),
+        city: yup.string().notRequired(),
+        state: yup.string().notRequired(),
+        zipCode: yup.string().notRequired(),
+        district: yup.string().notRequired(),
+        number: yup.string().notRequired(),
+        createdAt: yup.date().notRequired(),
+        updatedAt: yup.date().notRequired(),
+    }).notRequired(),
+    createdAt: yup.date().notRequired(),
+    updatedAt: yup.date().notRequired()
 })
 
 export const userUpdateSerializer = yup.object().shape({
