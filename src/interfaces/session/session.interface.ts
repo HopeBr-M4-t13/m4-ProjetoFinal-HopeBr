@@ -1,6 +1,6 @@
-interface iSessionUserRequest{
+interface ISessionUserRequest{
     email: string,
     password: string 
 }
 
-export default iSessionUserRequest
+export default ISessionUserRequest
