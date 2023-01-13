@@ -1,10 +1,10 @@
 import {Router} from "express"
 import { createPostController, deletePostController, editPostController, listPostController, listUniquePostController } from "../controllers/posts/posts.controller";
-import ensureAuthMiddleware from "../middlewares/verifyAuth.middleware";
+import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 
 const postRoutes = Router();
 
-postRoutes.post("", ensureAuthMiddleware, createPostController);
+postRoutes.post("", verifyAuthMiddleware, createPostController);
 postRoutes.get("", listPostController);
 postRoutes.get("/:id", listUniquePostController);
 postRoutes.patch("/:id", editPostController);
