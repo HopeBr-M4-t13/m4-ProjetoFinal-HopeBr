@@ -3,14 +3,15 @@ import AppError from "../errors/AppError";
 import AppDataSource from "../data-source";
 import { User } from "../entities/user.entity";
 
-const ensureIsAdminMiddleware = async (request: Request, response: Response, next: NextFunction) => {
+const verifyAdminMiddleware = async (request: Request, response: Response, next: NextFunction) => {
   const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.findOne({ where: { id: request.user.id }, withDeleted: true });
+  const users = await userRepository.findOne({ where: { id: request.user.id }});
 
   if (!users.isAdmin) {
-    throw new AppError("User is not admin", 403);
+    throw new AppError("User is not admin", 400);
   }
+  
   return next();
 };
 
-export default ensureIsAdminMiddleware;
+export default verifyAdminMiddleware;

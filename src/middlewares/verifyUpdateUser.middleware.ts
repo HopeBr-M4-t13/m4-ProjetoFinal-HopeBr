@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../errors/AppError";
 
-
-
 export const verifyUpdateUserMiddleware = async(req: Request, res: Response, next: NextFunction) =>{
 
     const setBody = req.body

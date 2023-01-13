@@ -8,7 +8,7 @@ const deleteDonationService = async (paramsId: string ) => {
         where: { id: paramsId }
     })
     
-    await donationsRepository.save({...findDonation, donated: true})
+    await donationsRepository.save({...findDonation, isActive: false})
 }
 
 export default deleteDonationService

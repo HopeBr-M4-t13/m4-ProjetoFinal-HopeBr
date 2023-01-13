@@ -26,6 +26,9 @@ export class Donation {
 	@Column({ default: false })
 	donated: boolean;
 
+	@Column({ default: true })
+	isActive: boolean;
+
 	@CreateDateColumn()
 	createdAt: Date;
 

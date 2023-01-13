@@ -6,7 +6,15 @@ import { listUsersResponse } from "../../serializers/users.serializers";
 const listAllUsersService = async (): Promise<IUserResponse[]> => {
     const usersRep = AppDataSource.getRepository(User)
 
-    const listUsers = await usersRep.find()
+    const listUsers = await usersRep.find({
+        where: {
+            isActive: true
+        },
+        relations: {
+            address: true,
+            image: true
+        }
+    })
 
     const dataResponse = listUsersResponse.validate(listUsers, {
         stripUnknown: true

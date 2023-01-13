@@ -1,13 +1,19 @@
 import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
-import { IUserResponse } from "../../interfaces/users/users.interface";
+import { IUserResponse, IUserUpdate } from "../../interfaces/users/users.interface";
 import { userResponseSerializer } from "../../serializers/users.serializers";
 
-const updateUserService = async (userId , dataUpdate): Promise<IUserResponse> => {
+const updateUserService = async (userId: string , dataUpdate: IUserUpdate): Promise<IUserResponse> => {
     const usersRep = AppDataSource.getRepository(User)
 
-    const findUser = await usersRep.findOneBy({
-        id: userId
+    const findUser = await usersRep.findOne({
+        where: {
+            id: userId
+        }, 
+        relations: {
+            address: true,
+            image: true
+        }
     })
 
     const updateUser = usersRep.create({
