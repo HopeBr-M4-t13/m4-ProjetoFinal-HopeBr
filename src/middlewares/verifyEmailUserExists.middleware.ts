@@ -13,7 +13,7 @@ const verifyEmailExistsMiddleware = async(req: Request, res: Response, next: Nex
 
 
     if(emailExists){
-        throw new AppError('This user already exists', 409);
+        throw new AppError('Email alredy is exists', 409);
     }
 
     return next();
