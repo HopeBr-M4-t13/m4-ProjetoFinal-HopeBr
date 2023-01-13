@@ -1,13 +1,11 @@
 import { Router } from "express";
 import { createUserController, deleteUserController, imageUpdateController, listAllUsersController, listUserController, updateAddressController, updateUserController } from "../controllers/users/users.controller";
 import createAddressMiddleware from "../middlewares/createAddress.middleware";
-import createImageMiddleware from "../middlewares/createImage.middleware";
 import verifyDataMiddleware from "../middlewares/verifyData.middleware";
 import ensureIsAdminMiddleware from "../middlewares/verifyAdmin.middleware";
 import ensureAuthMiddleware from "../middlewares/verifyAuth.middleware";
 import verifyBodyUpdateMiddleware from "../middlewares/verifyBodyUpdateUser.middleware";
 import verifyEmailExistsMiddleware from "../middlewares/verifyEmailUserExists.middleware";
-import verifyImgAlredyExists from "../middlewares/verifyImgAlreadyyExists.middlwware";
 import ensureOwnerOrAdminMiddleware from "../middlewares/verifyOwnerOrAdmin.middleware";
 import { addressUpdateSerializer, imageUpdateSerializer, userRequestSerializer, userUpdateSerializer } from "../serializers/users.serializers";
 import verifyUserExistsMiddleware from "../middlewares/verifyUserExists.middleware";
