@@ -1,6 +1,6 @@
 import { Router } from "express";
 import sessionUserController from "../controllers/session/session.controller";
-import validateData from "../middlewares/validateData.middleware";
+import validateData from "../middlewares/verifyData.middleware";
 import sessionSerializer from "../serializers/session.serializers";
 
 const sessionRoutes = Router();

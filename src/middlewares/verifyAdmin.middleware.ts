@@ -3,7 +3,7 @@ import AppError from "../errors/AppError";
 import AppDataSource from "../data-source";
 import { User } from "../entities/user.entity";
 
-const ensureIsAdminMiddleware = async (request: Request, response: Response, next: NextFunction) => {
+const verifyAdminMiddleware = async (request: Request, response: Response, next: NextFunction) => {
   const userRepository = AppDataSource.getRepository(User);
   const users = await userRepository.findOne({ where: { id: request.user.id }});
 
@@ -14,4 +14,4 @@ const ensureIsAdminMiddleware = async (request: Request, response: Response, nex
   return next();
 };
 
-export default ensureIsAdminMiddleware;
+export default verifyAdminMiddleware;

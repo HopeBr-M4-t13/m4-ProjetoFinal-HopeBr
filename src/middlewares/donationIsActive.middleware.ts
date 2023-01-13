@@ -3,7 +3,7 @@ import AppError from "../errors/AppError";
 import AppDataSource from "../data-source";
 import { Donation } from "../entities/donation.entity";
 
-const donationIsActive = async (request: Request, response: Response, next: NextFunction) => {
+const donationIsActiveMiddleware = async (request: Request, response: Response, next: NextFunction) => {
 
   const donationsRepository = AppDataSource.getRepository(Donation);
 
@@ -19,4 +19,4 @@ const donationIsActive = async (request: Request, response: Response, next: Next
 
 };
 
-export default donationIsActive;
+export default donationIsActiveMiddleware;
