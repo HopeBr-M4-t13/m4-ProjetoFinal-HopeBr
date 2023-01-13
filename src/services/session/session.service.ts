@@ -3,8 +3,9 @@ import jwt from "jsonwebtoken"
 import AppDataSource from "../../data-source"
 import { User } from "../../entities/user.entity"
 import AppError from "../../errors/AppError"
+import ISessionUserRequest from "../../interfaces/session/session.interface"
 
-const sessionUserService = async(userData) => {
+const sessionUserService = async(userData:ISessionUserRequest):Promise<string> => {
     const userRepository = AppDataSource.getRepository(User)
 
     const user = await userRepository.findOneBy({
