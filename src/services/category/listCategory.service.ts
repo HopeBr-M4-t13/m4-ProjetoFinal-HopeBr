@@ -6,7 +6,16 @@ import { listAllCategorySerializer } from "../../serializers/category.serializer
 const listCategoryService = async (): Promise<ICategoryResponse[]> => {
   const categoryRepo = AppDataSource.getRepository(Category)
 
-  const listCategory = await categoryRepo.find()
+  const listCategory = await categoryRepo.find({
+    select: {
+      id: true,
+      name: true
+    },
+    relations: {
+      posts: true,
+      donations: true
+    },
+  })
 
   const categoryList = listAllCategorySerializer.validate(listCategory, {
     stripUnknown: true
