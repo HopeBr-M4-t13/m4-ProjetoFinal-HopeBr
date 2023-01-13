@@ -2,8 +2,9 @@ import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
 import { Donation } from "../../entities/donation.entity";
 import { Image } from "../../entities/image.entity";
+import { IDonationUpdateRequest } from "../../interfaces/donations/donations.interface";
 
-const updateDonationService = async (data, paramsId: string ) => {
+const updateDonationService = async (data: IDonationUpdateRequest, paramsId: string ) => {
     const donationsRep = AppDataSource.getRepository(Donation)
     const imagesRep = AppDataSource.getRepository(Image)
     const categoryRep = AppDataSource.getRepository(Category)  
@@ -20,7 +21,7 @@ const updateDonationService = async (data, paramsId: string ) => {
         if(findImage){
             const updateImage = imagesRep.create({
                 ...findImage,
-                imageUrl: data.image
+                imageUrl: data.image.imageUrl
             })
             await imagesRep.save(updateImage)
             data.image = updateImage
@@ -38,7 +39,7 @@ const updateDonationService = async (data, paramsId: string ) => {
         if(findCategory){  
             const updateCategory = categoryRep.create({
             ...findCategory,
-            name: data.category
+            name: data.category.name
         })
         await categoryRep.save(updateCategory)
         data.category = updateCategory

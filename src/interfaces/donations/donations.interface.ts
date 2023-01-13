@@ -1,5 +1,5 @@
-import { ICategoryResponse } from "../category/category.interface"
-import { IImageResponse } from "../image/image.interface"
+import { ICategoryRequest, ICategoryResponse } from "../category/category.interface"
+import { IImageRequest, IImageResponse } from "../image/image.interface"
 import { IUserRequest, IUserResponse } from "../users/users.interface"
 
 export interface IDonationRequest {
@@ -8,6 +8,14 @@ export interface IDonationRequest {
     donated?: boolean
     image?: string
     category: string
+}
+
+export interface IDonationUpdateRequest {
+    name?: string
+    description?: string
+    donated?: boolean
+    image?: IImageRequest
+    category?: ICategoryRequest
 }
 
 export interface IDonationResponse {

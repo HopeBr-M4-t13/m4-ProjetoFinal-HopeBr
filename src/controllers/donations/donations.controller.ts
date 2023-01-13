@@ -1,5 +1,5 @@
 import {Request, Response} from "express"
-import { IDonationRequest } from "../../interfaces/donations/donations.interface"
+import { IDonationRequest, IDonationUpdateRequest } from "../../interfaces/donations/donations.interface"
 import createDonationService from "../../services/donations/createDonation.service"
 import deleteDonationService from "../../services/donations/deleteDonation.service"
 import listAllDonationsService from "../../services/donations/listAllDonations.service"
@@ -16,8 +16,7 @@ export const createDonationController = async (req: Request, res: Response) => {
 
 export const updateDonationController = async (req: Request, res: Response) => {
     const paramsId: string = req.params.id
-    const donationData: IDonationRequest = req.body
-    console.log(paramsId)
+    const donationData: IDonationUpdateRequest = req.body
     const data = await updateDonationService(donationData, paramsId)
     return res.status(200).json(data)
 }

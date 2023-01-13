@@ -9,3 +9,5 @@ export interface ICategoryResponse{
     createdAt: Date
     updatedAt: Date
 }
+
+

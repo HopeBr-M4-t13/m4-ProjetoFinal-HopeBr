@@ -3,8 +3,8 @@ export interface IImageRequest{
 }
 
 export interface IImageResponse{
-    id: string,
-    imageUrl: string,
+    id: string
+    imageUrl: string
     createdAt: Date
     updatedAt: Date
 }
