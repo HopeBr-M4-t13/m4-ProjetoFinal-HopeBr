@@ -20,5 +20,13 @@ export const listCategorySerializer: SchemaOf<ICategoryResponse> = yup.object().
   posts: listAllPostsSerializer
 })
 
+export const categoryResponseSerializer: SchemaOf<ICategoryResponse> = yup.object().shape({
+  id: yup.string().notRequired(),
+  name: yup.string().notRequired(),
+  imageUrl: yup.string().notRequired(),
+  createdAt: yup.date().notRequired(),
+  updatedAt: yup.date().notRequired()
+})
+
 export const listAllCategorySerializer: SchemaOf<iPostCategoryListResponse[]> = yup.array(postCategoryListSerializerResponse)
 

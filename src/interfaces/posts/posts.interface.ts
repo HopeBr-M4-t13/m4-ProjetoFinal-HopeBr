@@ -37,8 +37,8 @@ export interface iPostCategoryListResponse {
   id: string,
   title: string,
   content: string,
-  createdAt: Date,
-  updatedAt: Date
+  createdAt?: Date,
+  updatedAt?: Date
 }
 
 export interface iUpdatePostRequest {

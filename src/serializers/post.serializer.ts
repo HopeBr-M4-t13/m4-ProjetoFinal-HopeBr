@@ -26,11 +26,11 @@ export const createPostSerializerResponse: SchemaOf<iPostResponse> = yup.object(
 })
 
 export const postCategoryListSerializerResponse: SchemaOf<iPostCategoryListResponse> = yup.object().shape({
-  id: yup.string().required(),
-  title: yup.string().required(),
-  content: yup.string().required(),
-  createdAt: yup.date().required(),
-  updatedAt: yup.date().required()
+  id: yup.string().notRequired(),
+  title: yup.string().notRequired(),
+  content: yup.string().notRequired(),
+  createdAt: yup.date().notRequired(),
+  updatedAt: yup.date().notRequired()
 })
 
 export const listAllPostsSerializer: SchemaOf<iPostCategoryListResponse[]> = yup.array(createPostSerializerResponse)

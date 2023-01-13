@@ -21,7 +21,7 @@ const listCategoryService = async (): Promise<ICategoryResponse[]> => {
     stripUnknown: true
   })
 
-  return categoryList
+  return listCategory
 }
 
 export default listCategoryService;
