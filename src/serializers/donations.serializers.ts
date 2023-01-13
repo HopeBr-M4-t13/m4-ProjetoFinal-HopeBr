@@ -1,6 +1,7 @@
 import * as  yup from "yup"
 import { SchemaOf } from "yup"
 import { IDonationRequest, IDonationResponse, IResponseCreateDonation } from "../../src/interfaces/donations/donations.interface";
+import { categoryResponseSerializer } from "./category.serializer";
 
 export const donationSerializer: SchemaOf<IDonationRequest> = yup.object().shape({
     category: yup.string().required(),
@@ -29,7 +30,7 @@ export const donationUpdateSerializer = yup.object().shape({
     name: yup.string(),
     description: yup.string(),
     category: yup.string(),
-    image: yup.string(),
+    imageUrl: yup.string(),
     donated: yup.boolean()
 })
 
@@ -47,12 +48,7 @@ export const responseDonationUpdateSerializer:SchemaOf<IResponseCreateDonation> 
         createdAt: yup.date(),
         updatedAt: yup.date(),
     }).nullable(true),
-    category: yup.object({
-        id: yup.string(),
-        name: yup.string(),
-        createdAt: yup.date(),
-        updatedAt: yup.date(),
-    }).nullable(true),
+    category: categoryResponseSerializer.nullable(true),
     user: yup.object({
         id: yup.string(),
         name: yup.string(),
