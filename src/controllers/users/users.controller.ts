@@ -1,6 +1,6 @@
 import {Request, Response} from "express"
 import { IImageRequest } from "../../interfaces/image/image.interface"
-import { IAddressUpdate, IUserRequest, IUserUpdate } from "../../interfaces/users/users.interface"
+import { IAddressUpdate, IUserBody, IUserUpdate } from "../../interfaces/users/users.interface"
 import createUserService from "../../services/users/createUser.service"
 import deleteUserService from "../../services/users/deleteUser.service"
 import imageUpdateService from "../../services/users/imageUpdate.service"
@@ -10,7 +10,7 @@ import updateAddressService from "../../services/users/updateAddress.service"
 import updateUserService from "../../services/users/updateUser.service"
 
 export const createUserController = async (req: Request, res: Response) => {
-    const userData: IUserRequest = req.body
+    const userData: IUserBody = req.body
     const user = await createUserService(userData)
     return res.status(201).json(user)
 }

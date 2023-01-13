@@ -7,6 +7,9 @@ const listAllUsersService = async (): Promise<IUserResponse[]> => {
     const usersRep = AppDataSource.getRepository(User)
 
     const listUsers = await usersRep.find({
+        where: {
+            isActive: true
+        },
         relations: {
             address: true,
             image: true
