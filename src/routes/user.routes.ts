@@ -14,7 +14,7 @@ import verifyUserExistsMiddleware from "../middlewares/verifyUserExists.middlewa
 
 const userRoutes = Router();
 
-userRoutes.post("", verifyDataMiddleware(userRequestSerializer), verifyEmailExistsMiddleware, createAddressMiddleware, verifyImgAlredyExists, createImageMiddleware,createUserController);
+userRoutes.post("", verifyDataMiddleware(userRequestSerializer), verifyEmailExistsMiddleware, createAddressMiddleware, createUserController);
 userRoutes.get("", ensureAuthMiddleware, ensureIsAdminMiddleware, listAllUsersController);
 userRoutes.get("/:id", verifyUserExistsMiddleware, ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, listUserController);
 userRoutes.patch("/:id", verifyUserExistsMiddleware, ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, verifyBodyUpdateMiddleware, verifyEmailExistsMiddleware, verifyDataMiddleware(userUpdateSerializer), updateUserController);

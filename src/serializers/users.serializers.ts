@@ -9,7 +9,7 @@ export const userRequestSerializer: SchemaOf<IUserRequest> = yup.object().shape(
     password: yup.string().required(),
     contact: yup.string().required(),
     isAdmin: yup.boolean().required(),
-    image: yup.string().required(),
+    image: yup.string().notRequired(),
     address: yup.object({
         city: yup.string().required(),
         state: yup.string().required(),
@@ -31,7 +31,7 @@ export const userResponseSerializer: SchemaOf<IUserResponse> = yup.object().shap
         imageUrl: yup.string().notRequired(),
         createdAt: yup.date().notRequired(),
         updatedAt: yup.date().notRequired()
-    }).notRequired(),
+    }).notRequired().nullable(),
     address: yup.object({
         id: yup.string().notRequired(),
         city: yup.string().notRequired(),

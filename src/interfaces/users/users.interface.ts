@@ -18,6 +18,16 @@ export interface IUserRequest {
     address?: IAddressRequest 
 }
 
+export interface IUserBody {
+    name: string
+    email: string
+    password: string
+    contact: string
+    isAdmin: boolean
+    image?: string
+    address: IAddressResponse
+}
+
 //Response
 
 export interface IAddressResponse {
@@ -32,10 +42,10 @@ export interface IAddressResponse {
 }
 
 export interface IImageResponse {
-    id: string
-    imageUrl: string
-    createdAt: Date
-    updatedAt: Date
+    id?: string
+    imageUrl?: string
+    createdAt?: Date
+    updatedAt?: Date
 }
 
 export interface IUserResponse {
@@ -45,7 +55,7 @@ export interface IUserResponse {
     contact: string
     isAdmin: boolean
     isActive: boolean
-    image: IImageResponse
+    image?: IImageResponse | null
     address: IAddressResponse
     createdAt: Date
     updatedAt: Date
