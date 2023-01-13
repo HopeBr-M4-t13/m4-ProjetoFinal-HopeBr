@@ -11,7 +11,7 @@ const deletePostService = async(id: string) => {
 
   await postRepo.remove(postFound)
 
-  return {message: "post removed sucessfully"}
+  return {message: "post removed successfully"}
 }
 
 export default deletePostService

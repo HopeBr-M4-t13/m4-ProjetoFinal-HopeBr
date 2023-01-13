@@ -9,15 +9,20 @@ const createPostService = async (data: any, id: string): Promise<iPostResponse> 
   const categoryRepo = AppDataSource.getRepository(Category)
 
   data.user = id
-  const category = {
+
+  const categoryFound = await categoryRepo.findOneBy({
     name: data.category
+  })
+
+  if (categoryFound) {
+    data.category = categoryFound    
+  } else {
+    const createCategory = categoryRepo.create({ name: data.category })
+    await categoryRepo.save(createCategory)
+  
+    data.category = createCategory    
   }
-
-  const createCategory = categoryRepo.create(category)
-  await categoryRepo.save(createCategory)
-
-  data.category = createCategory
-
+ 
   const createPost = usersRepo.create(data)
   await usersRepo.save(createPost)
 

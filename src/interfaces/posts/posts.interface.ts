@@ -1,3 +1,5 @@
+import { ICategoryResponse } from "../category/category.interface"
+
 export interface iPostRequest {
   title: string,
   content: string,
@@ -9,7 +11,7 @@ export interface iPostResponse {
   id: string,
   title: string,
   content: string,
-  category: string,
+  category: ICategoryResponse,
   createdAt: string,
   updatedAt: string
 }

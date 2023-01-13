@@ -7,13 +7,13 @@ const listPostService = async (): Promise<iPostResponse[]> => {
 
   const postRepo = AppDataSource.getRepository(Post)
 
-  const listPost = await postRepo.find()
-
-  const postToReturn = await listAllPostsSerilizer.validate(listPost, {
-    stripUnknown: true
-  })
-
-  return postToReturn
+  const listPosts = await postRepo.createQueryBuilder('posts').  
+    innerJoinAndSelect('posts.category', 'category').
+    innerJoinAndSelect('posts.user', 'address').
+    getRawMany()
+  
+  
+  return listPosts
 }
 
 export default listPostService;

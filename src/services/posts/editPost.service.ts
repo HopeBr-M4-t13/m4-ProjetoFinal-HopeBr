@@ -18,15 +18,12 @@ const editPostService = async (id: string, postData: any): Promise<iPostResponse
     name: postData.category
   })
 
-  postData.category = categoryFound.id
-
-  if (!categoryFound) {
-    const category = {
-      name: postData.category
-    }
-    const createCategory = categoryRepo.create(category)
+  if (categoryFound) {
+    postData.category = categoryFound
+  } else {
+    const createCategory = categoryRepo.create({ name: postData.category })
     await categoryRepo.save(createCategory)
-    
+
     postData.category = createCategory
   }
 
