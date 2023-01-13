@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from "express"
 import {AnySchema} from "yup"
 import AppError from "../errors/AppError"
 
-const validateData = (Schema: AnySchema) => async (req: Request, res: Response, next: NextFunction) => {
+const verifyDataMiddleware = (Schema: AnySchema) => async (req: Request, res: Response, next: NextFunction) => {
     try {
         const validatedBody = await Schema.validate(req.body, {
             stripUnknown: true,
@@ -15,4 +15,4 @@ const validateData = (Schema: AnySchema) => async (req: Request, res: Response, 
 
     return next()
 }
-export default validateData
+export default verifyDataMiddleware

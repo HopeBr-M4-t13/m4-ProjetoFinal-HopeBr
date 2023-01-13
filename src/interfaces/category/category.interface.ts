@@ -8,4 +8,4 @@ export interface ICategoryResponse{
     name: string,
     createdAt: Date
     updatedAt: Date
-
+}
