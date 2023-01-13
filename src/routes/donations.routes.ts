@@ -1,18 +1,18 @@
 import { Router } from "express";
 import { createDonationController, deleteDonationController, listAllDonationsController, listDonationController, updateDonationController } from "../controllers/donations/donations.controller";
-import donationIsActive from "../middlewares/donationIsActive.middleware";
-import validateData from "../middlewares/verifyData.middleware";
-import ensureAuthMiddleware from "../middlewares/verifyAuth.middleware";
+import donationIsActiveMiddleware from "../middlewares/donationIsActive.middleware"
 import verifyIdDonationMiddleware from "../middlewares/verifyIdDonation.middleware";
-import ensureOwnerOrAdminMiddleware from "../middlewares/verifyOwnerOrAdmin.middleware";
+import verifyOwnerOrAdminMiddleware from "../middlewares/verifyOwnerOrAdmin.middleware";
 import { donationSerializer, donationUpdateSerializer } from "../serializers/donations.serializers";
+import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
+import verifyDataMiddleware from "../middlewares/verifyData.middleware";
 
 const donationRoutes = Router();
 
-donationRoutes.post("",ensureAuthMiddleware, validateData(donationSerializer), createDonationController);
+donationRoutes.post("",verifyAuthMiddleware, verifyDataMiddleware(donationSerializer), createDonationController);
 donationRoutes.get("", listAllDonationsController);
-donationRoutes.get("/:id", verifyIdDonationMiddleware, donationIsActive, ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, listDonationController);
-donationRoutes.patch("/:id", verifyIdDonationMiddleware, donationIsActive, ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, validateData(donationUpdateSerializer), updateDonationController);
-donationRoutes.delete("/:id", verifyIdDonationMiddleware, donationIsActive, ensureAuthMiddleware, ensureOwnerOrAdminMiddleware, deleteDonationController);
+donationRoutes.get("/:id", verifyIdDonationMiddleware, donationIsActiveMiddleware, verifyAuthMiddleware, verifyOwnerOrAdminMiddleware, listDonationController);
+donationRoutes.patch("/:id", verifyIdDonationMiddleware, donationIsActiveMiddleware, verifyAuthMiddleware, verifyOwnerOrAdminMiddleware, verifyDataMiddleware(donationUpdateSerializer), updateDonationController);
+donationRoutes.delete("/:id", verifyIdDonationMiddleware, donationIsActiveMiddleware, verifyAuthMiddleware, verifyOwnerOrAdminMiddleware, deleteDonationController);
 
 export default donationRoutes;
