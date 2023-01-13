@@ -1,6 +1,7 @@
 import * as  yup from "yup"
 import {SchemaOf} from "yup"
-import { IUserRequest, IUserResponse } from "../interfaces/users/users.interface"
+import { IImageRequest } from "../interfaces/image/image.interface"
+import { IAddressUpdate, IUserRequest, IUserResponse, IUserUpdate } from "../interfaces/users/users.interface"
 
 export const userRequestSerializer: SchemaOf<IUserRequest> = yup.object().shape({
     name: yup.string().required(),
@@ -45,11 +46,23 @@ export const userResponseSerializer: SchemaOf<IUserResponse> = yup.object().shap
     updatedAt: yup.date().notRequired()
 })
 
-export const userUpdateSerializer = yup.object().shape({
+export const userUpdateSerializer: SchemaOf<IUserUpdate> = yup.object().shape({
     name: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
     password: yup.string().notRequired(),
     contact: yup.string().notRequired()
+})
+
+export const addressUpdateSerializer: SchemaOf<IAddressUpdate> = yup.object({
+    city: yup.string().notRequired(),
+    state: yup.string().notRequired(),
+    zipCode: yup.string().notRequired(),
+    district: yup.string().notRequired(),
+    number: yup.string().notRequired()
+})
+
+export const imageUpdateSerializer: SchemaOf<IImageRequest> = yup.object({
+    imageUrl: yup.string().required()
 })
 
 export const listUsersResponse: SchemaOf<IUserResponse[]> = yup.array(userResponseSerializer)

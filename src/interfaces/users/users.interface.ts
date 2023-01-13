@@ -59,3 +59,11 @@ export interface IUserUpdate {
     password?: string
     contact?: string
 }
+
+export interface IAddressUpdate {
+    city?: string
+    state?: string
+    zipCode?: string
+    district?: string
+    number?: string
+}

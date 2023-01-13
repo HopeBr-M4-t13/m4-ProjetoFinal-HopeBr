@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import AppError from "../errors/AppError";
 
-const ensureAuthMiddleware = async (request: Request, response: Response, next: NextFunction) => {
+const verifyAuthMiddleware = async (request: Request, response: Response, next: NextFunction) => {
   let token = request.headers.authorization;
   if (!token) {
     throw new AppError("Invalid Token", 401);
@@ -22,4 +22,4 @@ const ensureAuthMiddleware = async (request: Request, response: Response, next: 
   });
 };
 
-export default ensureAuthMiddleware;
+export default verifyAuthMiddleware;
