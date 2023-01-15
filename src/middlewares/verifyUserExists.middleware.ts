@@ -21,6 +21,10 @@ const verifyUserExistsMiddleware = async ( req: Request, res: Response, next: Ne
         throw new AppError("User not found", 404)
     }
 
+    if(!findUser.isActive) {
+        throw new AppError("User not found", 404)
+    }
+
     return next()
 }
 
