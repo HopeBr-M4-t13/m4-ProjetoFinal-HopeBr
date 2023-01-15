@@ -20,7 +20,7 @@ PATCH /users/<id>/image - Atualiza uma imagem de usuário
 DELETE /users/<id> - Realiza um soft delete no usuário
 
 SESSION
-POST /login - Gera o token de autenticação
+POST /session - Gera o token de autenticação
 
 DONATIONS
 POST /donations - Criação de uma doação
