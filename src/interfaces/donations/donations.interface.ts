@@ -23,19 +23,6 @@ export interface IDonationResponse {
     updatedAt: Date
 }
 
-export interface IDonationResponse {
-    id: string
-    name: string
-    description: string
-    donated: boolean
-    category: string
-    isActive: boolean
-    image?: string
-    user?: string
-    createdAt: Date
-    updatedAt: Date
-}
-
 export interface IUserDonationResponse {
     id: string
     name: string
