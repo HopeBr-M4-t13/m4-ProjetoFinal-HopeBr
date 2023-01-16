@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { ICategoryRequest } from '../../interfaces/category/category.interface';
+import createCategoryService from '../../services/category/createCategory.service';
 import listCategoryService from '../../services/category/listCategory.service';
 
 const listCategoryController = async (req: Request, res: Response) => {
@@ -7,4 +9,10 @@ const listCategoryController = async (req: Request, res: Response) => {
   return res.status(201).json(listPost)
 }
 
-export { listCategoryController }
+const createCategoryController = async (req: Request, res: Response) => {
+  const categoryRequest: ICategoryRequest = req.body
+  const newCategory = await createCategoryService(categoryRequest)
+  return res.status(200).json(newCategory)
+}
+
+export { listCategoryController, createCategoryController }
