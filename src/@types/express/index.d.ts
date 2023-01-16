@@ -10,4 +10,14 @@ declare global {
   }
 }
 
+declare global {
+  namespace Express {
+    interface Request {
+      reactivateUser: {
+        id: string;
+      };
+    }
+  }
+}
+
 export {};

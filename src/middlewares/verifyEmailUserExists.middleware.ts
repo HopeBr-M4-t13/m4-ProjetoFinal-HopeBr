@@ -14,6 +14,13 @@ const verifyEmailExistsMiddleware = async (
 		email: req.body.email,
 	});
 
+	if(emailExists && !emailExists.isActive) {
+		req.reactivateUser = {
+			id: emailExists.id
+		}
+		return next()
+	}
+
 	if (emailExists) {
 		if (emailExists.id === req.params.id) {
 			return next();

@@ -9,13 +9,6 @@ import { categorySerializer } from "../serializers/category.serializer";
 
 const categoryRoutes = Router();
 
-// Criar Categoria - somente Admin / nao deixar crairr com o mesmo nome - FEITO
-// Listar Categoria - user logado - FEITO
-// Atualizar Categoria - somente Admin - FEITO
-// Deletar Categoria - somente Admin - FEITO
-// Listar donations pelo id da category - user logado - FEITO
-// Listar posts pelo id da catergory - user logado 
-
 categoryRoutes.get("", verifyAuthMiddleware, listCategoryController);
 categoryRoutes.post("", verifyAuthMiddleware, verifyAdminMiddleware, verifyDataMiddleware(categorySerializer), verifyCateryExistsMiddleware, createCategoryController);
 categoryRoutes.patch("/:id", verifyAuthMiddleware, verifyAdminMiddleware, verifyDataMiddleware(categorySerializer), verifyCateryIdMiddleware, verifyCateryExistsMiddleware, updateCateryController);
