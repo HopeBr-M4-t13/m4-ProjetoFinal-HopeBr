@@ -11,9 +11,16 @@ const verifyEmailExistsMiddleware = async (
 	const userRepository = AppDataSource.getRepository(User);
 	if(req.body.email){
 
-		const emailExists = await userRepository.findOneBy({
-			email: req.body.email,
-		});
+	const emailExists = await userRepository.findOneBy({
+		email: req.body.email,
+	});
+
+	if(emailExists && !emailExists.isActive) {
+		req.reactivateUser = {
+			id: emailExists.id
+		}
+		return next()
+	}
 	
 		if (emailExists) {
 			if (emailExists.id === req.params.id) {
@@ -22,7 +29,6 @@ const verifyEmailExistsMiddleware = async (
 			throw new AppError("This user already exists", 409);
 		}
 	}
-
 	return next();
 };
 

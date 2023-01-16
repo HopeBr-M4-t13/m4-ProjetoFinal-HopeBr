@@ -10,8 +10,9 @@ import updateAddressService from "../../services/users/updateAddress.service"
 import updateUserService from "../../services/users/updateUser.service"
 
 export const createUserController = async (req: Request, res: Response) => {
+    const reactivateUser = req.reactivateUser
     const userData: IUserBody = req.body
-    const user = await createUserService(userData)
+    const user = await createUserService(userData, reactivateUser)
     return res.status(201).json(user)
 }
 
