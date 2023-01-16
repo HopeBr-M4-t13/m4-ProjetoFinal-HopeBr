@@ -23,7 +23,6 @@ export const listCategorySerializer: SchemaOf<ICategoryResponse> = yup.object().
 export const categoryResponseSerializer: SchemaOf<ICategoryResponse> = yup.object().shape({
   id: yup.string().notRequired(),
   name: yup.string().notRequired(),
-  imageUrl: yup.string().notRequired(),
   createdAt: yup.date().notRequired(),
   updatedAt: yup.date().notRequired()
 })

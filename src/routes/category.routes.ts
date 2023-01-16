@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { listCategoryController } from "../controllers/category/category.controller";
+import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 
 const categoryRoutes = Router();
 
@@ -10,7 +11,7 @@ const categoryRoutes = Router();
 // Listar donations pelo id da category - user logado
 // Listar posts pelo id da catergory - user logado 
 
-categoryRoutes.get("", listCategoryController);
+categoryRoutes.get("", verifyAuthMiddleware, listCategoryController);
 categoryRoutes.get("/:id");
 
 export default categoryRoutes;
