@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { ICategoryRequest } from '../../interfaces/category/category.interface';
 import createCategoryService from '../../services/category/createCategory.service';
+import deleteCategoryService from '../../services/category/deleteCategory.service';
 import listCategoryService from '../../services/category/listCategory.service';
 import updateCateryService from '../../services/category/updateCatery.service';
 
@@ -23,4 +24,10 @@ const updateCateryController = async (req: Request, res: Response) => {
   return res.status(200).json(updatedCategory)
 }
 
-export { listCategoryController, createCategoryController, updateCateryController }
+const deleteCategoryController = async (req: Request, res: Response) => {
+  const categoryId: string = req.params.id
+  const deletedCategory = await deleteCategoryService(categoryId)
+  return res.status(204).json(deletedCategory)
+}
+
+export { listCategoryController, createCategoryController, updateCateryController, deleteCategoryController }

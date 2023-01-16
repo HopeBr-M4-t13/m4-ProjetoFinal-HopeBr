@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createCategoryController, listCategoryController, updateCateryController } from "../controllers/category/category.controller";
+import { createCategoryController, deleteCategoryController, listCategoryController, updateCateryController } from "../controllers/category/category.controller";
 import verifyAdminMiddleware from "../middlewares/verifyAdmin.middleware";
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 import verifyCateryExistsMiddleware from "../middlewares/verifyCateryExists.middleware";
@@ -11,13 +11,14 @@ const categoryRoutes = Router();
 
 // Criar Categoria - somente Admin / nao deixar crairr com o mesmo nome - FEITO
 // Listar Categoria - user logado - FEITO
-// Atualizar Categoria - somente Admin
-// Deletar Categoria - somente Admin
+// Atualizar Categoria - somente Admin - FEITO
+// Deletar Categoria - somente Admin - FEITO
 // Listar donations pelo id da category - user logado
 // Listar posts pelo id da catergory - user logado 
 
 categoryRoutes.get("", verifyAuthMiddleware, listCategoryController);
 categoryRoutes.post("", verifyAuthMiddleware, verifyAdminMiddleware, verifyDataMiddleware(categorySerializer), verifyCateryExistsMiddleware, createCategoryController);
-categoryRoutes.patch("/:id", verifyAuthMiddleware, verifyAdminMiddleware, verifyDataMiddleware(categorySerializer), verifyCateryIdMiddleware, verifyCateryExistsMiddleware, updateCateryController)
+categoryRoutes.patch("/:id", verifyAuthMiddleware, verifyAdminMiddleware, verifyDataMiddleware(categorySerializer), verifyCateryIdMiddleware, verifyCateryExistsMiddleware, updateCateryController);
+categoryRoutes.delete("/:id", verifyAuthMiddleware, verifyAdminMiddleware, verifyCateryIdMiddleware, deleteCategoryController);
 
 export default categoryRoutes;
