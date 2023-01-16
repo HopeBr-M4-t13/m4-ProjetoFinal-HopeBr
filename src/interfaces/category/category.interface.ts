@@ -7,10 +7,9 @@ export interface ICategoryRequest {
 
 export interface ICategoryResponse {
   id: string,
-  name?: string,
-  imageUrl?: string,
-  createdAt?: Date,
-  updatedAt?: Date
+  name: string,
+  createdAt: Date,
+  updatedAt: Date
 }
 
 export interface ICategoryListResponse{

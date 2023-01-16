@@ -7,6 +7,7 @@ import {
 	getUserToken,
 	IMockedUserData,
 } from "../mocks/session.mocks";
+import { User } from "../../entities/user.entity";
 
 describe("DELETE - /users/:id", () => {
 	let connection: DataSource;
@@ -24,6 +25,14 @@ describe("DELETE - /users/:id", () => {
 		adminData = await getAdminToken();
 
 		userData = await getUserToken();
+	});
+
+	beforeEach(async () => {
+		await AppDataSource.getRepository(User)
+			.createQueryBuilder("users")
+			.update(User)
+			.set({ isActive: true })
+			.execute();
 	});
 
 	afterAll(async () => {
