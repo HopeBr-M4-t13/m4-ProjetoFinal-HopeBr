@@ -11,23 +11,16 @@ const createPostService = async (data: any, id: string): Promise<iPostResponse> 
   data.user = id
 
   const categoryFound = await categoryRepo.findOneBy({
-    name: data.category
+    id: data.category
   })
-
-  if (categoryFound) {
-    data.category = categoryFound    
-  } else {
-    const createCategory = categoryRepo.create({ name: data.category })
-    await categoryRepo.save(createCategory)
   
-    data.category = createCategory    
-  }
- 
+  data.category =  categoryFound   
+  
   const createPost = usersRepo.create(data)
   await usersRepo.save(createPost)
 
   const postToReturn = createPostSerializerResponse.validate(createPost, {
-    stripUnknown: true
+    stripUnknown: false
   })
 
   return postToReturn

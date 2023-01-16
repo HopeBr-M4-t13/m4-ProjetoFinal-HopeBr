@@ -1,7 +1,7 @@
 import * as  yup from "yup"
 import { SchemaOf } from "yup"
 import { iUpdatePostRequest, iPostCategoryListResponse, iPostRequest, iPostResponse } from "../interfaces/posts/posts.interface"
-import { listCategorySerializer } from "./category.serializer"
+import { categoryResponseSerializer, listCategorySerializer } from "./category.serializer"
 
 export const createPostSerializer: SchemaOf<iPostRequest> = yup.object().shape({
   title: yup.string().required(),
@@ -20,7 +20,7 @@ export const createPostSerializerResponse: SchemaOf<iPostResponse> = yup.object(
   id: yup.string().required(),
   title: yup.string().required(),
   content: yup.string().required(),
-  category: listCategorySerializer,
+  category: categoryResponseSerializer,
   createdAt: yup.date().required(),
   updatedAt: yup.date().required()
 })
