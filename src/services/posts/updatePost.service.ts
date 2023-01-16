@@ -1,38 +1,46 @@
 import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
 import { Post } from "../../entities/post.entity";
-import { iPostResponse, iPostUpdateRequest } from "../../interfaces/posts/posts.interface";
+import AppError from "../../errors/AppError";
+import {
+	iPostResponse,
+	iPostUpdateRequest,
+} from "../../interfaces/posts/posts.interface";
+import uniquePostService from "./listUniquePost.service";
 
-const updatePostService = async (id: string, postData): Promise<iPostResponse> => {
+const updatePostService = async (id: string, postData) => {
+	const postRepo = AppDataSource.getRepository(Post);
+	const categoryRepo = AppDataSource.getRepository(Category);
 
-  const postRepo = AppDataSource.getRepository(Post)
-  const categoryRepo = AppDataSource.getRepository(Category)
+	const postFound = await postRepo.findOneBy({
+		id: id,
+	});
 
-  const postFound = await postRepo.findOneBy({
-      id: id    
-  })
+	if (!postFound) {
+		throw new AppError("Post not found", 404);
+	}
 
-  const categoryFound = await categoryRepo.findOneBy({
-    name: postData.category
-  })
+	if (postData.category) {
+		const categoryFound = await categoryRepo.findOneBy({
+			id: postData.category,
+		});
 
-  if (categoryFound) {
-    postData.category = categoryFound
-  } else {
-    const createCategory = categoryRepo.create({ name: postData.category })
-    await categoryRepo.save(createCategory)
+		if (!categoryFound) {
+			throw new AppError("Category not found", 404);
+		}
+		postData.category = categoryFound;
+	}
 
-    postData.category = createCategory
-  } 
+	const updatedPost = postRepo.create({
+		...postFound,
+		...postData,
+	});
 
-  const updatedPost = postRepo.create({
-    ...postFound,
-    ...postData
-  })  
+	await postRepo.save(updatedPost);
 
-  await postRepo.save(updatedPost)  
+	const postToReturn = await uniquePostService(id);
 
-  return postData
-}
+	return postToReturn;
+};
 
-export default updatePostService
+export default updatePostService;
