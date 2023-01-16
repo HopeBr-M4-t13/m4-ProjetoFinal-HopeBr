@@ -12,6 +12,10 @@ const verifyUserIsActiveMiddleware = async (req: Request, res: Response, next: N
         email: email
     })
 
+    if(!findUser) {
+        throw new AppError("Email or password invalid", 401)
+    }
+
     if(!findUser.isActive) {
         throw new AppError("User not found", 404)
     }
