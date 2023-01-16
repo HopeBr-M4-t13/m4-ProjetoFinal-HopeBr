@@ -15,7 +15,7 @@ app.use("/users", userRoutes)
 app.use("/session", sessionRoutes)
 app.use("/donations", donationRoutes)
 app.use("/posts", postRoutes)
-app.use("/category", categoryRoutes)
+app.use("/categories", categoryRoutes)
 
 
 app.use(handleError)
