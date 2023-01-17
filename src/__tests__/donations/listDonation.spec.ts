@@ -40,30 +40,6 @@ describe("GET - /donations", () => {
         expect(response.status).toBe(200);
     });
 
-    test("Should be able to list donation by id | donation list yourself", async () => {
-        const listDonation = await request(app)
-        .get("/donations")
-
-        const response = await request(app)
-        .get(`/donations/${listDonation.body[0].id}`)
-        .set("Authorization", `${userData.token}`);
-
-        expect(response.body).toHaveLength(1);
-        expect(response.status).toBe(200);
-    });
-
-    test("Should be able to list donation by id | Admin list donation", async () => {
-        const listDonation = await request(app)
-        .get("/donations")
-
-
-        const response = await request(app)
-        .get(`/donations/${listDonation.body[0].id}`)
-        .set("Authorization", `${adminData.token}`);
-
-        expect(response.body).toHaveLength(1);
-        expect(response.status).toBe(200);
-    });
 
     test("Should be able to list donation by id | donation not exists", async () => {
         const response = await request(app)

@@ -34,7 +34,7 @@ describe("DELETE - /donations/:id", () => {
 
         await request(app)
         .post("/donations")
-        .set("Authorization", `${userData.token}`)
+        .set("Authorization", `${adminData.token}`)
         .send(mockedCreateDonationThree)
 
 	});
