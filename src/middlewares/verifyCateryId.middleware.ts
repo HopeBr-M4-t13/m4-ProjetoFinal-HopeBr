@@ -2,12 +2,14 @@ import { Request, Response, NextFunction } from "express"
 import dataSource from "../data-source";
 import { Category } from "../entities/category.entity";
 import AppError from "../errors/AppError";
+import { validate } from "uuid";
 
 const verifyCateryIdMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const categoriesRep = dataSource.getRepository(Category)
     const categoryId = req.params.id
+    const validateId = validate(req.params.id)
 
-    if(categoryId.length != 36) {
+    if(!validateId) {
         throw new AppError("Uuid Invalid", 400)
     }
 
