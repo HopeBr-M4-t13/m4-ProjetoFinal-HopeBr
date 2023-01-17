@@ -3,7 +3,7 @@ import { getAdminToken, getUserToken, IMockedUserData } from "../mocks/session.m
 import AppDataSource from "../../data-source";
 import request from "supertest";
 import app from "../../app";
-import { mockedCreateDonation, mockedCreateDonationTwo } from "../mocks/donation.mocks";
+import {mockedCreateDonationTwo } from "../mocks/donation.mocks";
 
 describe("GET - /donations", () => {
     let connection: DataSource
@@ -39,6 +39,24 @@ describe("GET - /donations", () => {
         expect(response.body).toHaveLength(1);
         expect(response.status).toBe(200);
     });
+
+    test("Should be able to list donation by id", async () => {
+        const listDonation = await request(app)
+        .get("/donations")
+
+        const response = await request(app)
+        .get(`/donations/${listDonation.body[0].id}`)
+        .set("Authorization", `${adminData.token}`)
+
+        expect(response.body).toHaveProperty("name");
+        expect(response.body).toHaveProperty("description");
+        expect(response.body).toHaveProperty("isActive");
+        expect(response.body).toHaveProperty("id");
+        expect(response.body).toHaveProperty("updatedAt");
+        expect(response.body).toHaveProperty("createdAt");
+        expect(response.body).toHaveProperty("donated");
+        expect(response.status).toBe(200);
+    })
 
 
     test("Should be able to list donation by id | donation not exists", async () => {
@@ -77,12 +95,6 @@ describe("GET - /donations", () => {
         expect(response.body).toHaveProperty("message")
 
     })
-
-
-
-
-
-
 
 
 
