@@ -17,7 +17,6 @@ export const createDonationController = async (req: Request, res: Response) => {
 export const updateDonationController = async (req: Request, res: Response) => {
     const paramsId: string = req.params.id
     const donationData: IDonationRequest = req.body
-    console.log(paramsId)
     const data = await updateDonationService(donationData, paramsId)
     return res.status(200).json(data)
 }
