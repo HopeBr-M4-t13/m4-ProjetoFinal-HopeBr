@@ -1,29 +1,38 @@
 import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
 import { Post } from "../../entities/post.entity";
+import { User } from "../../entities/user.entity";
 import { iPostResponse } from "../../interfaces/posts/posts.interface";
 import { createPostSerializerResponse } from "../../serializers/post.serializer";
 
-const createPostService = async (data: any, id: string): Promise<iPostResponse> => {
-  const usersRepo = AppDataSource.getRepository(Post)
-  const categoryRepo = AppDataSource.getRepository(Category)
+const createPostService = async (
+	data: any,
+	id: string
+): Promise<iPostResponse> => {
+	const postsRepo = AppDataSource.getRepository(Post);
+	const categoryRepo = AppDataSource.getRepository(Category);
+	const userRepo = AppDataSource.getRepository(User);
 
-  data.user = id
+	const userFound = await userRepo.findOneBy({
+		id: id,
+	});
 
-  const categoryFound = await categoryRepo.findOneBy({
-    id: data.category
-  })
-  
-  data.category =  categoryFound   
-  
-  const createPost = usersRepo.create(data)
-  await usersRepo.save(createPost)
+	data.user = userFound;
 
-  const postToReturn = createPostSerializerResponse.validate(createPost, {
-    stripUnknown: false
-  })
+	const categoryFound = await categoryRepo.findOneBy({
+		id: data.category,
+	});
 
-  return postToReturn
-}
+	data.category = categoryFound;
+
+	const createPost = postsRepo.create(data);
+	await postsRepo.save(createPost);
+
+	const postToReturn = createPostSerializerResponse.validate(createPost, {
+		stripUnknown: true,
+	});
+
+	return postToReturn;
+};
 
 export default createPostService;
