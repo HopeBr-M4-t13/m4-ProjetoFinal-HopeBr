@@ -3,12 +3,12 @@ import { Category } from "../../entities/category.entity";
 import { Post } from "../../entities/post.entity";
 import AppError from "../../errors/AppError";
 import {
-	iPostResponse,
-	iPostUpdateRequest,
+	iPostResponse
 } from "../../interfaces/posts/posts.interface";
+import { createPostSerializerResponse } from "../../serializers/post.serializer";
 import uniquePostService from "./listUniquePost.service";
 
-const updatePostService = async (id: string, postData) => {
+const updatePostService = async (id: string, postData): Promise<iPostResponse> => {
 	const postRepo = AppDataSource.getRepository(Post);
 	const categoryRepo = AppDataSource.getRepository(Category);
 
@@ -38,9 +38,13 @@ const updatePostService = async (id: string, postData) => {
 
 	await postRepo.save(updatedPost);
 
-	const postToReturn = await uniquePostService(id);
+	let postToReturn = await uniquePostService(id);
 
-	return postToReturn;
+	const post = createPostSerializerResponse.validate(postToReturn, {
+		stripUnknown: true,
+	});
+
+	return post;
 };
 
 export default updatePostService;

@@ -29,7 +29,7 @@ const createPostService = async (
 	await postsRepo.save(createPost);
 
 	const postToReturn = createPostSerializerResponse.validate(createPost, {
-		stripUnknown: false,
+		stripUnknown: true,
 	});
 
 	return postToReturn;

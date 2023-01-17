@@ -9,7 +9,6 @@ import {
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 import verifycategoryExistsMiddleware from "../middlewares/verifyCategoryExists.middlesware";
 import verifyDataMiddleware from "../middlewares/verifyData.middleware";
-import verifyOwnerOrAdminMiddleware from "../middlewares/verifyOwnerOrAdmin.middleware";
 import { createPostSerializer } from "../serializers/post.serializer";
 
 const postRoutes = Router();

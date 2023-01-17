@@ -46,4 +46,3 @@ export interface iUpdatePostRequest {
   content?: string,
   category?: string
 }
-
