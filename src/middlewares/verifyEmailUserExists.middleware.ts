@@ -17,7 +17,8 @@ const verifyEmailExistsMiddleware = async (
 
 	if(emailExists && !emailExists.isActive) {
 		req.reactivateUser = {
-			id: emailExists.id
+			id: emailExists.id,
+			isAdmin: emailExists.isAdmin
 		}
 		return next()
 	}

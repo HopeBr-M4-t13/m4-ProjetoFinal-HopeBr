@@ -4,6 +4,7 @@ declare global {
   namespace Express {
     interface Request {
       user: {
+        isAdmin: boolean;
         id: string;
       };
     }
@@ -15,6 +16,7 @@ declare global {
     interface Request {
       reactivateUser: {
         id: string;
+        isAdmin: boolean;
       };
     }
   }
