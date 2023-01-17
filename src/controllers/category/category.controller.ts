@@ -9,14 +9,13 @@ import updateCateryService from '../../services/category/updateCatery.service';
 
 const listCategoryController = async (req: Request, res: Response) => {
   const listPost = await listCategoryService()
-
-  return res.status(201).json(listPost)
+  return res.status(200).json(listPost)
 }
 
 const createCategoryController = async (req: Request, res: Response) => {
   const categoryRequest: ICategoryRequest = req.body
   const newCategory = await createCategoryService(categoryRequest)
-  return res.status(200).json(newCategory)
+  return res.status(201).json(newCategory)
 }
 
 const updateCateryController = async (req: Request, res: Response) => {
@@ -35,13 +34,13 @@ const deleteCategoryController = async (req: Request, res: Response) => {
 const listDonationsByCategoryController = async (req: Request, res: Response) => {
   const categoryId: string = req.params.id
   const listDonationsByCategory = await listDonationsByCategoryService(categoryId)
-  return res.status(201).json(listDonationsByCategory)
+  return res.status(200).json(listDonationsByCategory)
 }
 
 const listPostsByCategoryController = async (req: Request, res: Response) => {
   const categoryId: string = req.params.id
   const listPostsByCategory = await listPostsByCategoryService(categoryId)
-  return res.status(201).json(listPostsByCategory)
+  return res.status(200).json(listPostsByCategory)
 }
 
 export { listCategoryController, createCategoryController, updateCateryController, deleteCategoryController, listDonationsByCategoryController, listPostsByCategoryController }
