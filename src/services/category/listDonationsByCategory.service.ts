@@ -1,8 +1,8 @@
-import dataSource from "../../data-source";
+import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
 
 const listDonationsByCategoryService = async (id: string): Promise<Category> => {
-    const categoriesRep = dataSource.getRepository(Category)
+    const categoriesRep = AppDataSource.getRepository(Category)
 
     const findCategory = await categoriesRep.findOne({
         where: {

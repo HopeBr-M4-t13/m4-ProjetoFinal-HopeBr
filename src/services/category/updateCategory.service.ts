@@ -1,9 +1,9 @@
-import dataSource from "../../data-source";
+import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
 import { ICategoryRequest } from "../../interfaces/category/category.interface";
 
 const updateCategoryService = async (id: string, data: ICategoryRequest): Promise<Category> => {
-    const categoriesRep = dataSource.getRepository(Category)
+    const categoriesRep = AppDataSource.getRepository(Category)
 
     const findCategory = await categoriesRep.findOneBy({
         id: id

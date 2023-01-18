@@ -44,5 +44,5 @@ const setDataSourceConfig = (): DataSourceOptions => {
     };
 };
 
-const dataSourceConfig = setDataSourceConfig();
-export default new DataSource(dataSourceConfig);
+const AppDataSource = new DataSource(setDataSourceConfig());
+export default AppDataSource
