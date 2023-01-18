@@ -13,8 +13,12 @@ const createPostService = async (
 	const categoryRepo = AppDataSource.getRepository(Category);
 	const userRepo = AppDataSource.getRepository(User);
 
-	const userFound = await userRepo.findOneBy({
-		id: id,
+	const userFound = await userRepo.findOne({
+		where: { id: id },
+		relations: {
+			address: true,
+			image: true,
+		},
 	});
 
 	data.user = userFound;

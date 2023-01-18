@@ -12,7 +12,10 @@ const uniquePostService = async (id: string) => {
 		},
 		relations: {
 			category: true,
-			user: true,
+			user: {
+				image: true,
+				address: true,
+			},
 		},
 	});
 

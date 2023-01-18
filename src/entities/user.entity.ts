@@ -55,7 +55,7 @@ export class User {
 	@OneToMany(() => Post, (post) => post.user)
 	posts: Post;
 
-	@OneToOne(() => Image)
+	@OneToOne(() => Image, { onDelete: "SET NULL" })
 	@JoinColumn()
 	image: Image;
 
