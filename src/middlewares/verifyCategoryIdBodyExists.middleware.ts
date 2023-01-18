@@ -4,7 +4,7 @@ import { Category } from "../entities/category.entity";
 import AppError from "../errors/AppError";
 
 
-const verifycategoryExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+const verifyCategoryIdBodyExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const userRepository = AppDataSource.getRepository(Category)
 
   const validCategory = await userRepository.findOneBy({
@@ -17,4 +17,4 @@ const verifycategoryExistsMiddleware = async (req: Request, res: Response, next:
   throw new AppError('Category not found', 404); 
 }
 
-export default verifycategoryExistsMiddleware
+export default verifyCategoryIdBodyExistsMiddleware

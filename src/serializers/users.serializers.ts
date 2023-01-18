@@ -3,7 +3,7 @@ import {SchemaOf} from "yup"
 import { IImageRequest } from "../interfaces/image/image.interface"
 import { IAddressUpdate, IUserRequest, IUserResponse, IUserUpdate } from "../interfaces/users/users.interface"
 
-export const userRequestSerializer: SchemaOf<IUserRequest> = yup.object().shape({
+const userRequestSerializer: SchemaOf<IUserRequest> = yup.object().shape({
     name: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().required(),
@@ -19,7 +19,7 @@ export const userRequestSerializer: SchemaOf<IUserRequest> = yup.object().shape(
     }).required(),
 })
 
-export const userResponseSerializer: SchemaOf<IUserResponse> = yup.object().shape({
+const userResponseSerializer: SchemaOf<IUserResponse> = yup.object().shape({
     id: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
     name: yup.string().notRequired(),
@@ -46,14 +46,14 @@ export const userResponseSerializer: SchemaOf<IUserResponse> = yup.object().shap
     updatedAt: yup.date().notRequired()
 })
 
-export const userUpdateSerializer: SchemaOf<IUserUpdate> = yup.object().shape({
+const userUpdateSerializer: SchemaOf<IUserUpdate> = yup.object().shape({
     name: yup.string().notRequired(),
     email: yup.string().email().notRequired(),
     password: yup.string().notRequired(),
     contact: yup.string().notRequired()
 })
 
-export const addressUpdateSerializer: SchemaOf<IAddressUpdate> = yup.object({
+const addressUpdateSerializer: SchemaOf<IAddressUpdate> = yup.object({
     city: yup.string().notRequired(),
     state: yup.string().notRequired(),
     zipCode: yup.string().notRequired(),
@@ -61,8 +61,10 @@ export const addressUpdateSerializer: SchemaOf<IAddressUpdate> = yup.object({
     number: yup.string().notRequired()
 })
 
-export const imageUpdateSerializer: SchemaOf<IImageRequest> = yup.object({
+const imageUpdateSerializer: SchemaOf<IImageRequest> = yup.object({
     imageUrl: yup.string().required()
 })
 
-export const listUsersResponse: SchemaOf<IUserResponse[]> = yup.array(userResponseSerializer)
+const listUsersResponse: SchemaOf<IUserResponse[]> = yup.array(userResponseSerializer)
+
+export {userRequestSerializer, userResponseSerializer, userUpdateSerializer, addressUpdateSerializer, imageUpdateSerializer, listUsersResponse}

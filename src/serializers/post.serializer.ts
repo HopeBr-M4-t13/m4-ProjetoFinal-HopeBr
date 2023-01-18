@@ -1,24 +1,21 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
 import {
-	iUpdatePostRequest,
-	iPostCategoryListResponse,
-	iPostRequest,
-	iPostResponse,
+	IUpdatePostRequest,
+	IPostCategoryListResponse,
+	IPostRequest,
+	IPostResponse,
 } from "../interfaces/posts/posts.interface";
-import {
-	categoryResponseSerializer,
-	listCategorySerializer,
-} from "./category.serializer";
+
 import { userResponseSerializer } from "./users.serializers";
 
-export const createPostSerializer: SchemaOf<iPostRequest> = yup.object().shape({
+const createPostSerializer: SchemaOf<IPostRequest> = yup.object().shape({
 	title: yup.string().required(),
 	content: yup.string().required(),
 	category: yup.string().required(),
 });
 
-export const updatePostSerializer: SchemaOf<iUpdatePostRequest> = yup
+const updatePostSerializer: SchemaOf<IUpdatePostRequest> = yup
 	.object()
 	.shape({
 		title: yup.string().notRequired(),
@@ -26,7 +23,7 @@ export const updatePostSerializer: SchemaOf<iUpdatePostRequest> = yup
 		category: yup.string().notRequired(),
 	});
 
-export const createPostSerializerResponse: SchemaOf<iPostResponse> = yup
+const createPostSerializerResponse: SchemaOf<IPostResponse> = yup
 	.object()
 	.shape({
 		id: yup.string().required(),
@@ -43,7 +40,7 @@ export const createPostSerializerResponse: SchemaOf<iPostResponse> = yup
 		updatedAt: yup.date().required(),
 	});
 
-export const postCategoryListSerializerResponse: SchemaOf<iPostCategoryListResponse> =
+const postCategoryListSerializerResponse: SchemaOf<IPostCategoryListResponse> =
 	yup.object().shape({
 		id: yup.string().notRequired(),
 		title: yup.string().notRequired(),
@@ -52,5 +49,8 @@ export const postCategoryListSerializerResponse: SchemaOf<iPostCategoryListRespo
 		updatedAt: yup.date().notRequired(),
 	});
 
-export const listAllPostsSerializer: SchemaOf<iPostCategoryListResponse[]> =
+const listAllPostsSerializer: SchemaOf<IPostCategoryListResponse[]> =
 	yup.array(createPostSerializerResponse);
+
+
+export {createPostSerializer, updatePostSerializer, createPostSerializerResponse, postCategoryListSerializerResponse, listAllPostsSerializer}
