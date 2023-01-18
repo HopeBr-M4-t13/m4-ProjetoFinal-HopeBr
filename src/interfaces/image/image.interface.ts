@@ -1,10 +1,12 @@
-export interface IImageRequest{
+interface IImageRequest{
     imageUrl: string 
 }
 
-export interface IImageResponse{
+interface IImageResponse{
     id: string,
     imageUrl: string,
     createdAt: Date
     updatedAt: Date
 }
+
+export {IImageRequest, IImageResponse}

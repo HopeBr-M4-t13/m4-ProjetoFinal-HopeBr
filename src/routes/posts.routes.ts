@@ -7,7 +7,7 @@ import {
 	updatePostController,
 } from "../controllers/posts/posts.controller";
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
-import verifycategoryExistsMiddleware from "../middlewares/verifyCategoryExists.middlesware";
+import verifyCategoryIdBodyExistsMiddleware from "../middlewares/verifyCategoryIdBodyExists.middleware";
 import verifyDataMiddleware from "../middlewares/verifyData.middleware";
 import verifyOwnerOrAdminPostMiddleware from "../middlewares/verifyOwnerOrAdminPost.middleware";
 import { createPostSerializer } from "../serializers/post.serializer";
@@ -18,7 +18,7 @@ postRoutes.post(
 	"",
 	verifyAuthMiddleware,
 	verifyDataMiddleware(createPostSerializer),
-	verifycategoryExistsMiddleware,
+	verifyCategoryIdBodyExistsMiddleware,
 	createPostController
 );
 postRoutes.get("", verifyAuthMiddleware, listPostController);

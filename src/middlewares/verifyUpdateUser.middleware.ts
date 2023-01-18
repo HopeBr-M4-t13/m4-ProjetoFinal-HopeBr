@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../errors/AppError";
 
-export const verifyUpdateUserMiddleware = async(req: Request, res: Response, next: NextFunction) =>{
+const verifyUpdateUserMiddleware = async(req: Request, res: Response, next: NextFunction) =>{
 
     const setBody = req.body
 
@@ -13,3 +13,5 @@ export const verifyUpdateUserMiddleware = async(req: Request, res: Response, nex
 
     return next();
 }
+
+export default verifyUpdateUserMiddleware

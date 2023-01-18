@@ -1,8 +1,8 @@
 import AppDataSource from "../../data-source";
 import { Post } from "../../entities/post.entity";
-import { iPostListResponse, iPostResponse } from "../../interfaces/posts/posts.interface";
+import { IPostResponse } from "../../interfaces/posts/posts.interface";
 
-const listPostService = async (): Promise<iPostResponse[]> => {
+const listPostService = async (): Promise<IPostResponse[]> => {
 
   const postRepo = AppDataSource.getRepository(Post)
 
@@ -20,8 +20,6 @@ const listPostService = async (): Promise<iPostResponse[]> => {
     },
   })
 
-  
-  
   return listPosts
 }
 

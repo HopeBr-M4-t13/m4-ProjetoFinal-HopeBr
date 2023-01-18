@@ -1,19 +1,19 @@
 import { ICategoryResponse } from "../category/category.interface";
 import { IUserResponse } from "../users/users.interface";
 
-export interface iPostRequest {
+interface IPostRequest {
 	title: string;
 	content: string;
 	category: string;
 }
-export interface iPostUpdateRequest {
+interface IPostUpdateRequest {
 	title?: string;
 	content?: string;
 	category?: string;
 	user?: string;
 }
 
-export interface iPostResponse {
+interface IPostResponse {
 	id: string;
 	title: string;
 	content: string;
@@ -22,7 +22,7 @@ export interface iPostResponse {
 	category: ICategoryResponse;
 }
 
-export interface iPostListResponse {
+interface IPostListResponse {
 	id: string;
 	title: string;
 	content: string;
@@ -32,7 +32,7 @@ export interface iPostListResponse {
 	user: IUserResponse;
 }
 
-export interface iPostCategoryListResponse {
+interface IPostCategoryListResponse {
 	id: string;
 	title: string;
 	content: string;
@@ -40,8 +40,10 @@ export interface iPostCategoryListResponse {
 	updatedAt?: Date;
 }
 
-export interface iUpdatePostRequest {
+interface IUpdatePostRequest {
 	title?: string;
 	content?: string;
 	category?: string;
 }
+
+export {IPostRequest, IPostUpdateRequest, IPostResponse, IPostListResponse, IPostCategoryListResponse, IUpdatePostRequest}

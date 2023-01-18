@@ -2,13 +2,13 @@ import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
 import { Post } from "../../entities/post.entity";
 import { User } from "../../entities/user.entity";
-import { iPostResponse } from "../../interfaces/posts/posts.interface";
+import { IPostResponse } from "../../interfaces/posts/posts.interface";
 import { createPostSerializerResponse } from "../../serializers/post.serializer";
 
 const createPostService = async (
 	data: any,
 	id: string
-): Promise<iPostResponse> => {
+): Promise<IPostResponse> => {
 	const postsRepo = AppDataSource.getRepository(Post);
 	const categoryRepo = AppDataSource.getRepository(Category);
 	const userRepo = AppDataSource.getRepository(User);

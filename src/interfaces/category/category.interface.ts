@@ -1,23 +1,25 @@
 import { IDonationResponse } from "../donations/donations.interface"
-import { iPostResponse } from "../posts/posts.interface"
+import { IPostResponse } from "../posts/posts.interface"
 
-export interface ICategoryRequest {
+interface ICategoryRequest {
   name: string
 }
 
-export interface ICategoryResponse {
+interface ICategoryResponse {
   id: string,
   name: string,
   createdAt: Date,
   updatedAt: Date
 }
 
-export interface ICategoryListResponse{
+interface ICategoryListResponse{
   id?: string,
   name?: string,
   imageUrl?: string,
   createdAt?: Date,
   updatedAt?: Date,
   donations: IDonationResponse,
-  posts: iPostResponse
+  posts: IPostResponse
 }
+
+export {ICategoryRequest, ICategoryResponse, ICategoryListResponse}

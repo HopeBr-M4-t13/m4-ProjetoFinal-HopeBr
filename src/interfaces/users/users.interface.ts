@@ -1,6 +1,6 @@
 // Request
 
-export interface IAddressRequest {
+interface IAddressRequest {
     city: string
     state: string
     zipCode: string
@@ -8,7 +8,7 @@ export interface IAddressRequest {
     number: string
 }
 
-export interface IUserRequest {
+interface IUserRequest {
     name: string
     email: string
     password: string
@@ -18,7 +18,7 @@ export interface IUserRequest {
     address?: IAddressRequest 
 }
 
-export interface IUserBody {
+interface IUserBody {
     name: string
     email: string
     password: string
@@ -30,7 +30,7 @@ export interface IUserBody {
 
 //Response
 
-export interface IAddressResponse {
+interface IAddressResponse {
     id: string
     city: string
     state: string
@@ -41,14 +41,14 @@ export interface IAddressResponse {
     updatedAt: Date
 }
 
-export interface IImageResponse {
+interface IImageResponse {
     id?: string
     imageUrl?: string
     createdAt?: Date
     updatedAt?: Date
 }
 
-export interface IUserResponse {
+interface IUserResponse {
     id: string
     name: string
     email: string
@@ -63,17 +63,19 @@ export interface IUserResponse {
 
 //Update
 
-export interface IUserUpdate {
+interface IUserUpdate {
     name?: string
     email?: string
     password?: string
     contact?: string
 }
 
-export interface IAddressUpdate {
+interface IAddressUpdate {
     city?: string
     state?: string
     zipCode?: string
     district?: string
     number?: string
 }
+
+export {IAddressRequest, IUserRequest, IUserBody, IAddressResponse, IImageResponse, IUserResponse, IUserUpdate, IAddressUpdate}

@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
-import { ICategoryRequest } from '../../interfaces/category/category.interface';
-import createCategoryService from '../../services/category/createCategory.service';
-import deleteCategoryService from '../../services/category/deleteCategory.service';
-import listCategoryService from '../../services/category/listCategory.service';
-import listDonationsByCategoryService from '../../services/category/listDonationsByCategory.service';
-import listPostsByCategoryService from '../../services/category/listPostsByCategory.service';
-import updateCateryService from '../../services/category/updateCatery.service';
+import { Request, Response } from "express";
+import { ICategoryRequest } from "../../interfaces/category/category.interface";
+import createCategoryService from "../../services/category/createCategory.service";
+import deleteCategoryService from "../../services/category/deleteCategory.service";
+import listCategoryService from "../../services/category/listCategory.service";
+import listDonationsByCategoryService from "../../services/category/listDonationsByCategory.service";
+import listPostsByCategoryService from "../../services/category/listPostsByCategory.service";
+import updateCategoryService from "../../services/category/updateCategory.service";
 
 const listCategoryController = async (req: Request, res: Response) => {
   const listPost = await listCategoryService()
@@ -18,10 +18,10 @@ const createCategoryController = async (req: Request, res: Response) => {
   return res.status(201).json(newCategory)
 }
 
-const updateCateryController = async (req: Request, res: Response) => {
+const updateCategoryController = async (req: Request, res: Response) => {
   const categoryId: string = req.params.id
   const categoryRequest: ICategoryRequest = req.body
-  const updatedCategory = await updateCateryService(categoryId, categoryRequest)
+  const updatedCategory = await updateCategoryService(categoryId, categoryRequest)
   return res.status(200).json(updatedCategory)
 }
 
@@ -43,4 +43,4 @@ const listPostsByCategoryController = async (req: Request, res: Response) => {
   return res.status(200).json(listPostsByCategory)
 }
 
-export { listCategoryController, createCategoryController, updateCateryController, deleteCategoryController, listDonationsByCategoryController, listPostsByCategoryController }
+export { listCategoryController, createCategoryController, updateCategoryController as updateCategoryController, deleteCategoryController, listDonationsByCategoryController, listPostsByCategoryController }

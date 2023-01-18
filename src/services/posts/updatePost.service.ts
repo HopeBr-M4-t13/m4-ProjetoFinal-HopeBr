@@ -3,12 +3,12 @@ import { Category } from "../../entities/category.entity";
 import { Post } from "../../entities/post.entity";
 import AppError from "../../errors/AppError";
 import {
-	iPostResponse
+	IPostResponse
 } from "../../interfaces/posts/posts.interface";
 import { createPostSerializerResponse } from "../../serializers/post.serializer";
 import uniquePostService from "./listUniquePost.service";
 
-const updatePostService = async (id: string, postData): Promise<iPostResponse> => {
+const updatePostService = async (id: string, postData): Promise<IPostResponse> => {
 	const postRepo = AppDataSource.getRepository(Post);
 	const categoryRepo = AppDataSource.getRepository(Category);
 

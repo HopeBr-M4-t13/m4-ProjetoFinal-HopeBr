@@ -4,7 +4,7 @@ import { Category } from "../entities/category.entity";
 import AppError from "../errors/AppError";
 import { validate } from "uuid";
 
-const verifyCateryIdMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+const verifyCategoryIdMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const categoriesRep = dataSource.getRepository(Category)
     const categoryId = req.params.id
     const validateId = validate(req.params.id)
@@ -24,4 +24,4 @@ const verifyCateryIdMiddleware = async (req: Request, res: Response, next: NextF
     return next()
 };
 
-export default verifyCateryIdMiddleware;
+export default verifyCategoryIdMiddleware;
