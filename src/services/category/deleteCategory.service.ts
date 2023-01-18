@@ -1,8 +1,8 @@
-import dataSource from "../../data-source";
+import AppDataSource from "../../data-source";
 import { Category } from "../../entities/category.entity";
 
 const deleteCategoryService = async (id: string): Promise<{}> => {
-    const categoriesRep = dataSource.getRepository(Category)
+    const categoriesRep = AppDataSource.getRepository(Category)
 
     await categoriesRep.createQueryBuilder('categories')
         .delete()
