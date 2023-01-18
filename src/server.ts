@@ -9,7 +9,7 @@ import 'dotenv/config'
         console.error("Error during Data Source initialization", err)
     })
     
-    const port = 3000
+    const port = 3001
     app.listen(port, () => {
         console.log(`Servidor executando na porta ${port}`)
     })
