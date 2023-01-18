@@ -3,7 +3,7 @@ import { SchemaOf } from "yup"
 import { IDonationRequest, IDonationResponse, IResponseCreateDonation } from "../../src/interfaces/donations/donations.interface";
 import { categoryResponseSerializer } from "./category.serializer";
 
-export const donationSerializer: SchemaOf<IDonationRequest> = yup.object().shape({
+const donationSerializer: SchemaOf<IDonationRequest> = yup.object().shape({
     category: yup.string().required(),
     donated: yup.boolean().notRequired(),
     image: yup.string().notRequired(),
@@ -11,7 +11,7 @@ export const donationSerializer: SchemaOf<IDonationRequest> = yup.object().shape
     description: yup.string().required()
 })
 
-export const returnDonationSerializer: SchemaOf<IDonationResponse> = yup.object().shape({
+const returnDonationSerializer: SchemaOf<IDonationResponse> = yup.object().shape({
     id: yup.string(),
     name: yup.string(),
     description: yup.string(),
@@ -24,9 +24,9 @@ export const returnDonationSerializer: SchemaOf<IDonationResponse> = yup.object(
     updatedAt: yup.date()
 })
 
-export const listAllDonationsResponse: SchemaOf<IDonationResponse[]> = yup.array(returnDonationSerializer)
+const listAllDonationsResponse: SchemaOf<IDonationResponse[]> = yup.array(returnDonationSerializer)
 
-export const donationUpdateSerializer = yup.object().shape({
+const donationUpdateSerializer = yup.object().shape({
     name: yup.string(),
     description: yup.string(),
     category: yup.string(),
@@ -34,7 +34,7 @@ export const donationUpdateSerializer = yup.object().shape({
     donated: yup.boolean()
 })
 
-export const responseDonationUpdateSerializer:SchemaOf<IResponseCreateDonation> = yup.object().shape({
+const responseDonationUpdateSerializer:SchemaOf<IResponseCreateDonation> = yup.object().shape({
     id: yup.string(),
     name: yup.string(),
     description: yup.string(),
@@ -63,6 +63,6 @@ export const responseDonationUpdateSerializer:SchemaOf<IResponseCreateDonation> 
     }),
 })
 
-
+export {donationSerializer, returnDonationSerializer, listAllDonationsResponse, donationUpdateSerializer, responseDonationUpdateSerializer}
 
 

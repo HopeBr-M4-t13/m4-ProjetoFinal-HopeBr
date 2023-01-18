@@ -1,49 +1,49 @@
-import { ICategoryResponse } from "../category/category.interface"
-import { IUserResponse } from "../users/users.interface"
+import { ICategoryResponse } from "../category/category.interface";
+import { IUserResponse } from "../users/users.interface";
 
-export interface iPostRequest {
-  title: string,
-  content: string,
-  category?: string,
-  user?: string
+interface IPostRequest {
+	title: string;
+	content: string;
+	category: string;
 }
-export interface iPostUpdateRequest {
-  title?: string,
-  content?: string,
-  category?: string,
-  user?: string
-}
-
-export interface iPostResponse {
-  id: string,
-  title: string,
-  content: string,
-  createdAt: Date,
-  updatedAt: Date,
-  category: ICategoryResponse
+interface IPostUpdateRequest {
+	title?: string;
+	content?: string;
+	category?: string;
+	user?: string;
 }
 
-export interface iPostListResponse {
-  id: string,
-  title: string,
-  content: string,
-  createdAt: Date,
-  updatedAt: Date,
-  category: ICategoryResponse,
-  user: IUserResponse
+interface IPostResponse {
+	id: string;
+	title: string;
+	content: string;
+	createdAt: Date;
+	updatedAt: Date;
+	category: ICategoryResponse;
 }
 
-export interface iPostCategoryListResponse {
-  id: string,
-  title: string,
-  content: string,
-  createdAt?: Date,
-  updatedAt?: Date
+interface IPostListResponse {
+	id: string;
+	title: string;
+	content: string;
+	createdAt: Date;
+	updatedAt: Date;
+	category: ICategoryResponse;
+	user: IUserResponse;
 }
 
-export interface iUpdatePostRequest {
-  title?: string,
-  content?: string,
-  category?: string
+interface IPostCategoryListResponse {
+	id: string;
+	title: string;
+	content: string;
+	createdAt?: Date;
+	updatedAt?: Date;
 }
 
+interface IUpdatePostRequest {
+	title?: string;
+	content?: string;
+	category?: string;
+}
+
+export {IPostRequest, IPostUpdateRequest, IPostResponse, IPostListResponse, IPostCategoryListResponse, IUpdatePostRequest}
