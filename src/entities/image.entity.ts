@@ -11,7 +11,7 @@ export class Image {
 	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
-	@Column({ nullable: false, unique: true })
+	@Column()
 	imageUrl: string;
 
 	@CreateDateColumn()
