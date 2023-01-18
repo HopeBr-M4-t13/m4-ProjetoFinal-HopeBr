@@ -6,13 +6,14 @@ import verifyOwnerOrAdminMiddleware from "../middlewares/verifyOwnerOrAdmin.midd
 import { donationSerializer, donationUpdateSerializer } from "../serializers/donations.serializers";
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 import verifyDataMiddleware from "../middlewares/verifyData.middleware";
+import verifyOwnerOrAdminDonationMiddleware from "../middlewares/verifyOwnerOrAdminDonation.middleware";
 
 const donationRoutes = Router();
 
 donationRoutes.post("",verifyAuthMiddleware, verifyDataMiddleware(donationSerializer), createDonationController);
 donationRoutes.get("", listAllDonationsController);
-donationRoutes.get("/:id", verifyIdDonationMiddleware, donationIsActiveMiddleware, verifyAuthMiddleware, verifyOwnerOrAdminMiddleware, listDonationController);
-donationRoutes.patch("/:id", verifyIdDonationMiddleware, donationIsActiveMiddleware, verifyAuthMiddleware, verifyOwnerOrAdminMiddleware, verifyDataMiddleware(donationUpdateSerializer), updateDonationController);
-donationRoutes.delete("/:id", verifyIdDonationMiddleware, donationIsActiveMiddleware, verifyAuthMiddleware, verifyOwnerOrAdminMiddleware, deleteDonationController);
+donationRoutes.get("/:id", verifyIdDonationMiddleware, donationIsActiveMiddleware, verifyAuthMiddleware, listDonationController);
+donationRoutes.patch("/:id", verifyIdDonationMiddleware, donationIsActiveMiddleware, verifyAuthMiddleware, verifyOwnerOrAdminDonationMiddleware, verifyDataMiddleware(donationUpdateSerializer), updateDonationController);
+donationRoutes.delete("/:id", verifyIdDonationMiddleware, donationIsActiveMiddleware, verifyAuthMiddleware, verifyOwnerOrAdminDonationMiddleware, deleteDonationController);
 
 export default donationRoutes;
