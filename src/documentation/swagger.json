@@ -1,0 +1,1510 @@
+{
+    "openapi": "3.0.0",
+
+    "info": {
+        "title": "HopeBr - API",
+        "description": "Este é o backend da aplicação HopeBr - um site de doações voluntárias! O objetivo dessa aplicação é conseguir conectar as pessoas que precisam de alguma doação (donatários) com as pessoas que podem fazer uma doação.",
+        "contact":  {
+            "email": "exemplo@mail.com"
+        },
+        "version": "1.0.0"
+    },
+
+    "servers":[
+
+        {
+            "url": "http://localhost:3000",
+            "description": "API test"
+        },
+        {
+            "url": "https://hopebrservice.onrender.com/",
+            "description": "API production"
+        }
+    ],
+
+    
+
+    "paths":{
+
+        "/users": {
+            "post":{
+                "summary": "Rota para criação de usuário",
+                "description": "Essa rota será responsável por cadastrar um novo usuário",
+                "tags":["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/userRequest"
+                            },
+                            "examples":{
+                                "User Example": {
+                                    "value":{
+                                        "name": "John Smith",
+                                        "email": "john@mail.com",
+                                        "password": "john2023",
+                                        "contact": "99-99999999",
+                                        "isAdmin": "true",
+                                        "image": "http://www.imagem.com.br/426820565456.jpg",
+                                        "address":{
+                                            "city": "barra da tijuca",
+                                            "state": "rio de janeiro",
+                                            "zipCode": "00.000-000",
+                                            "district": "posto 9",
+                                            "number": "56"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "400":{
+                        "description": "User Already exists"
+                    },
+                    "201":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/userResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/users/session": {
+            "post":{
+                "summary": "Rota para fazer login do usuário",
+                "description": "Essa rota será responsável por logar o usuário e retornar o token",
+                "tags":["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/userLogin"
+                            },
+                            "examples":{
+                                "User Example": {
+                                    "value":{
+                                        "name": "John Smith",
+                                        "password": "john2023"
+                                        }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/userLoginResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+
+        "/users - list All Users": {
+            "get":{
+                "summary": "Rota para listagem de usuários",
+                "description": "A rota deve listar todos os usuários",
+                "tags":["Users"],
+                "responses":{
+                    "401":{
+                        "description": "Unauthorized"
+                    },
+
+                    "Permission": {
+                        "description": "Admin"
+                    },
+
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/userResponseList"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/users/id": {
+            "get":{
+                "summary": "Rota para listagem de usuário",
+                "description": "A rota deve listar um usuário específico pelo Id",
+                "tags":["Users"],
+                "responses":{
+                    "401":{
+                        "description": "Unauthorized"
+                    },
+
+                    "Admin":{
+                        "description": "admin, List any user"  
+                    },
+
+                    "User":{
+                        "description": "user, List own user"
+                    },
+
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/userResponseList"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/users/id/address": {
+            "patch":{
+                "summary": "Rota altera o endereço do usuário",
+                "description": "Deve atualizar um ou mais dados do endereço do usuário.",
+                "tags":["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/addressRequest"
+                            },
+                            "examples":{
+                                "Address Example": {
+                                    "value":{
+                                        "address":{
+                                            "city": "capacabana",
+                                            "state": "rio de janeiro",
+                                            "zipCode": "00.000-000",
+                                            "district": "Humaitá",
+                                            "number": "114"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/addressResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/users/id/image": {
+            "patch":{
+                "summary": "A rota deve atualizar a imagem do usuário",
+                "description": "Deve atualizar a imagem do usuário passando a Url.",
+                "tags":["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/imageRequest"
+                            },
+                            "examples":{
+                                "User Example": {
+                                    "value":{
+                                        "imageUrl": "http://example.com/hausdhqwpdj5412a1sd51.jpg"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/imageResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/users/id ": {
+            "patch":{
+                "summary": "Rota para Atualizar usuário",
+                "description": "Deve atualizar um ou mais dados do usuário",
+                "tags":["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/userRequestUpload"
+                            },
+                            "examples":{
+                                "User Example": {
+                                    "value":{
+                                        "name": "John Smith",
+                                        "email": "john.smith@mail.com",
+                                        "password": "john2023",
+                                        "contact": "99-99999999"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/userResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/users/id  ": {
+            "delete":{
+                "summary": "Rota deleta um usuário",
+                "description": "Deve deletar um usuário pelo Id",
+                "tags":["Users"],
+
+                "responses":{
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "204":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/deleteResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+
+
+        "/donations": {
+            "post":{
+                "summary": "Rota para criação de doações",
+                "description": "Essa rota será responsável por criar as doações dos usuários",
+                "tags":["Donations"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/donationRequest"
+                            },
+                            "examples":{
+                                "Donation Example": {
+                                    "value":{
+                                        "name": "Televisão",
+                                        "description": "Seminova funcionando perfeitamente",
+                                        "category": "asdas5d1a5s1d21as5d1a2s1d5asd4a5sd1",
+                                        "image": "http://www.imagem.com.br/42682asdasfk56.jpg"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+
+                    "201":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/donationResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/donations - list All donations": {
+            "get":{
+                "summary": "Rota para listagem de doações",
+                "description": "A rota deve listar todas as doações Ativas",
+                "tags":["Donations"],
+                "responses":{
+                    "Auth":{
+                        "description": "Esta rota não precisa de autenticação para ser acessada"
+                    },
+                    
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/donationResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/donations/id": {
+            "get":{
+                "summary": "Rota para listagem de uma doação",
+                "description": "Deve atualizar uma doação específica pelo Id",
+                "tags":["Donations"],
+                "responses":{
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+                    
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/donationResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/donations/id ": {
+            "patch":{
+                "summary": "Rota para Atualizar Doações",
+                "description": "Deve atualizar um ou mais dados da Doação",
+                "tags":["Donations"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/donationRequestUpdate"
+                            },
+                            "examples":{
+                                "Donation Example": {
+                                    "value":{
+                                        "name": "Televisão 47 polegadas",
+                                        "description": "tv funcionando perfeitamente",
+                                        "category": "asdas5d1a5s1d21as5d1a2s1d5asd4a5sd1",
+                                        "donated": "99-99999999",
+                                        "image": "http://www.imagem.com.br/426820565456.jpg"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+                    "404":{
+                        "description": "Donation not found"
+                    },
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/donationResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/donations/id  ": {
+            "delete":{
+                "summary": "Rota deleta um Donation",
+                "description": "Deve deletar um usuário pelo Id usando um softDelete",
+                "tags":["Donations"],
+
+                "responses":{
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "204":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/deleteResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+
+
+
+        "/posts": {
+            "post":{
+                "summary": "Rota para criação de postagens",
+                "description": "Essa rota será responsável por criar as postagens dos usuários",
+                "tags":["Posts"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/postRequest"
+                            },
+                            "examples":{
+                                "Post Example": {
+                                    "value":{
+                                        "title": "Guarda Roupas",
+                                        "content": "Preciso de um Guarda Roupas",
+                                        "category": "asdas5d1a5s1d21as5d1a2s1d5asd4a5sd1"
+                                       
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+
+                    "201":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/postResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/posts - list all posts": {
+            "get":{
+                "summary": "Rota para listagem de postagens",
+                "description": "A rota deve listar todas as postagens Ativas",
+                "tags":["Posts"],
+                "responses":{
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+                    
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/postListResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/posts/id": {
+            "get":{
+                "summary": "Rota para listagem de uma Postagem",
+                "description": "Deve atualizar uma Postagem específica pelo Id",
+                "tags":["Posts"],
+                "responses":{
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+                    
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/postListResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/posts/id ": {
+            "patch":{
+                "summary": "Rota para Atualizar Postagem",
+                "description": "Deve atualizar um ou mais dados da Postagem",
+                "tags":["Posts"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/postRequest"
+                            },
+                            "examples":{
+                                "Post Example": {
+                                    "value":{
+                                        "title": "Cama de Casal",
+                                        "content": "Preciso de uma cama de casal",
+                                        "category": "asdas5d1a5s1d21as5d1a2s1d5asd4a5sd1"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/postResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/posts/id  ": {
+            "delete":{
+                "summary": "Rota deleta uma postagem",
+                "description": "Deve deletar uma Postagem pelo Id usando um softDelete",
+                "tags":["Posts"],
+
+                "responses":{
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "204":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/deleteResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+
+        "/categories": {
+            "post":{
+                "summary": "Rota para criação de categorias",
+                "description": "Essa rota será responsável por criar as categorias",
+                "tags":["Categories"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/categoryRequest"
+                            },
+                            "examples":{
+                                "Category Example": {
+                                    "value":{
+                                        "name": "Móveis"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+
+                    "201":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/categoryResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/categories ": {
+            "get":{
+                "summary": "Rota para listagem de categorias",
+                "description": "A rota deve listar todas as categorias",
+                "tags":["Categories"],
+                "responses":{
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+                    
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/categoryResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/categories/id/donations ": {
+            "get":{
+                "summary": "Rota para listagem de categorias",
+                "description": "Deve listar as doações de uma categoria específica",
+                "tags":["Categories"],
+                "responses":{
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+                    
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/categoryListResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/categories/id/posts ": {
+            "get":{
+                "summary": "Rota para listagem de categorias",
+                "description": "Deve listar as postagens de uma categoria específica",
+                "tags":["Categories"],
+                "responses":{
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+                    
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/categoryListPostsResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/categories/id ": {
+            "patch":{
+                "summary": "Rota para Atualizar Categoria",
+                "description": "Deve atualizar um nome da Postagem",
+                "tags":["Categories"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/postRequest"
+                            },
+                            "examples":{
+                                "Category Example": {
+                                    "value":{
+                                        "name": "Mamãe Bebê"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/categoryResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/categories/id  ": {
+            "delete":{
+                "summary": "Rota deleta uma categoria",
+                "description": "Deve deletar uma categoria pelo Id usando um softDelete",
+                "tags":["Categories"],
+
+                "responses":{
+                    "400":{
+                        "description": "Uuid Invalid"
+                    },
+
+                    "Auth":{
+                        "description": "Esta rota exige autenticação para ser acessada"
+                    },
+
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "204":{
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/deleteResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    
+
+
+
+
+    "components":{
+        "schemas":{
+            "userRequest":{
+                "type": "object",
+                "properties":{
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password":{
+                        "type": "string"
+                    },
+                    "contact":{
+                        "type": "string"
+                    },
+                    "isAdmin": {
+                        "type": "boolean"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "address":{
+                        "type":"object",
+                        "properties": {
+                            "city": {
+                                "type": "string"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "zipCode":{
+                                "type": "string"
+                            },
+                            "district":{
+                                "type": "string"
+                            },
+                            "number": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+
+            "userResponse":{
+                "type": "object",
+                "properties":{
+                    "id":{
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password":{
+                        "type": "string"
+                    },
+                    "contact":{
+                        "type": "string"
+                    },
+                    "isAdmin": {
+                        "type": "boolean"
+                    },
+
+                    "createdAt":{
+                        "type": "date"
+                    },
+                    "updatedAt":{
+                        "type": "date"
+                    },
+                    "isActive":{
+                        "type": "boolean"
+                    },
+                    "address":{
+                        "type":"object",
+                        "properties": {
+                            "city": {
+                                "type": "string"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "zipCode":{
+                                "type": "string"
+                            },
+                            "district":{
+                                "type": "string"
+                            },
+                            "number": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    
+                    "image":{
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type":"string"
+                            },
+                            "imageUrl":{
+                                "type": "string"
+                            },
+                            "createdAt":{
+                                "type": "string"
+                            },
+                            "updatedAt": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+
+            "userRequestUpload":{
+                "type": "object",
+                "properties":{
+                    "id":{
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password":{
+                        "type": "string"
+                    },
+                    "contact":{
+                        "type": "string"
+                    }
+                }
+            },
+
+            "userResponseList":{
+                "type": "object",
+                "properties":{
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "contact":{
+                        "type": "string"
+                    },
+                    "isAdmin": {
+                        "type": "boolean"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "address":{
+                        "type":"object",
+                        "properties": {
+                            "city": {
+                                "type": "string"
+                            },
+                            "state": {
+                                "type": "string"
+                            },
+                            "zipCode":{
+                                "type": "string"
+                            },
+                            "district":{
+                                "type": "string"
+                            },
+                            "number": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+
+            "userLogin":{
+                "type": "object",
+                "properties":{
+                    "name":{
+                        "type": "string"
+                    },
+                    "password":{
+                        "type":"string"
+                    }
+                }
+            },
+
+            "userLoginResponse":{
+                "type": "object",
+                "properties":{
+                    "Token":{
+                        "type": "string"
+                    }
+                }
+            },
+
+
+
+
+
+            "addressRequest":{
+
+                "type":"object",
+                "properties": {
+                    "city": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "zipCode":{
+                        "type": "string"
+                    },
+                    "district":{
+                        "type": "string"
+                    },
+                    "number": {
+                        "type": "string"
+                    }
+                }
+            },
+
+            "addressResponse":{
+
+                "type":"object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "zipCode":{
+                        "type": "string"
+                    },
+                    "district":{
+                        "type": "string"
+                    },
+                    "number": {
+                        "type": "string"
+                    },
+                    "createdAt":{
+                        "type": "date"
+                    },
+                    "updatedAt":{
+                        "type": "date"
+                    }
+                }
+            },
+
+            "imageRequest":{
+                "type":"object",
+                "properties": {
+                    "imageUrl": {
+                        "type":"string"
+                    }
+                }
+            },
+
+            "imageResponse":{
+                "type":"object",
+                "properties": {
+                    "imageUrl": {
+                        "type":"string"
+                    },
+                    "createdAt":{
+                        "type": "date"
+                    },
+                    "updatedAt":{
+                        "type": "date"
+                    }
+
+                }
+            },
+
+            "sessionRequest": {
+                "type":"object",
+                "properties":{
+                    "email":{
+                        "type": "string"
+                    },
+                    "password":{
+                        "type": "string"
+                    }
+                }
+            },
+
+            "deleteResponse":{
+                "type":"object",
+                "properties":{
+                    
+                }
+            },
+
+
+
+            
+
+            "donationRequest":{
+                "type": "object",
+                "properties":{
+                    "name":{
+                        "type": "string"
+                    },
+                    "description":{
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "image":{
+                        "type": "string"
+                    }
+                }
+                
+            },
+
+            "donationResponse":{
+                "type": "object",
+                "properties":{
+                    "id": {
+                        "type":"string"
+                    },
+                    "name":{
+                        "type": "string"
+                    },
+                    "description":{
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "object",
+                        "properties":{
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type":"string"
+                            },
+                            "createdAt": {
+                                "type":"date"
+                            },
+                            "updatedAt": {
+                                "type":"date"
+                            }
+                        }
+                    },
+                    "image":{
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type":"string"
+                            },
+                            "imageUrl":{
+                                "type": "string"
+                            },
+                            "createdAt":{
+                                "type": "string"
+                            },
+                            "updatedAt": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "user":{
+                        "type":"object",
+                        "properties":{
+                            "id":{
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            },
+
+                            "contact":{
+                                "type": "string"
+                            }
+                        }
+                    }
+                } 
+            },
+
+            "donationRequestUpdate":{
+                "type": "object",
+                "properties":{
+                    "name":{
+                        "type": "string"
+                    },
+                    "description":{
+                        "type": "string"
+                    },
+                    "donated":{
+                        "type": "boolean"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "image":{
+                        "type": "string"
+                    }
+                }
+                
+            },
+
+
+
+
+            "postRequest":{
+                "type": "object",
+                "properties":{
+                    "title":{
+                        "type": "string"
+                    },
+                    "content":{
+                        "type": "string"
+                    },
+                    "category":{
+                        "type": "string"
+                    }   
+                }
+            },
+
+            "postResponse":{
+                "type": "object",
+                "properties":{
+                    "id":{
+                        "type":"string"
+                    },
+                    "title":{
+                        "type": "string"
+                    },
+                    "content":{
+                        "type": "string"
+                    },
+                    "user":{
+                        "type":"object",
+                        "properties":{
+                            "id":{
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            },
+
+                            "contact":{
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "createdAt":{
+                        "type": "date"
+                    },
+                    "updatedAt":{
+                        "type": "date"
+                    }
+                    
+                }
+            },
+
+            "postListResponse":{
+                "type": "object",
+                "properties":{
+                    "id":{
+                        "type":"string"
+                    },
+                    "title":{
+                        "type": "string"
+                    },
+                    "content":{
+                        "type": "string"
+                    },
+
+                    "createdAt":{
+                        "type": "date"
+                    },
+                    "updatedAt":{
+                        "type": "date"
+                    },
+                    "category": {
+                        "type": "object",
+                        "properties":{
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type":"string"
+                            },
+                            "createdAt": {
+                                "type":"date"
+                            },
+                            "updatedAt": {
+                                "type":"date"
+                            }
+                        }
+                    }
+                    
+                }
+            },
+
+
+            "categoryRequest":{
+                "type": "object",
+                "properties":{
+                    "name":{
+                        "type": "string"
+                    }
+                }
+            },
+
+            "categoryResponse":{
+                "type": "object",
+                "properties":{
+                    "name":{
+                        "type": "string"
+                    },
+                    "id":{
+                        "type":"string"
+                    },
+                    "createdAt":{
+                        "type": "date"
+                    },
+                    "updatedAt": {
+                        "type":"date"
+                    }
+
+                }
+            },
+
+            "categoryListResponse":{
+                "type": "object",
+                "properties":{
+                    "name":{
+                        "type": "string"
+                    },
+                    "id":{
+                        "type":"string"
+                    },
+                    "createdAt":{
+                        "type": "date"
+                    },
+                    "updatedAt": {
+                        "type":"date"
+                    },
+
+                    "donations":{
+                        "type": "object",
+                        "properties":{
+                            "id": {
+                                "type":"string"
+                            },
+                            "name":{
+                                "type": "string"
+                            },
+                            "description":{
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+
+            "categoryListPostsResponse":{
+                "type": "object",
+                "properties":{
+                    "name":{
+                        "type": "string"
+                    },
+                    "id":{
+                        "type":"string"
+                    },
+                    "createdAt":{
+                        "type": "date"
+                    },
+                    "updatedAt": {
+                        "type":"date"
+                    },
+
+                    "posts":{
+                        "type": "object",
+                        "properties":{
+                            "id":{
+                                "type":"string"
+                            },
+                            "title":{
+                                "type": "string"
+                            },
+                            "content":{
+                                "type": "string"
+                                }
+                        }
+                    }
+                }
+            }
+        },
+
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
