@@ -2,6 +2,7 @@ import app from './app';
 import AppDataSource from './data-source';
 import 'dotenv/config'
 
+
 (async () => {
 
     await AppDataSource.initialize()
@@ -14,3 +15,4 @@ import 'dotenv/config'
         console.log(`Servidor executando na porta ${port}`)
     })
 })()
+
