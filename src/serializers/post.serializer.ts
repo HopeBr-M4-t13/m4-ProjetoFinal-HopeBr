@@ -50,6 +50,8 @@ export const postCategoryListSerializerResponse: SchemaOf<iPostCategoryListRespo
 		content: yup.string().notRequired(),
 		createdAt: yup.date().notRequired(),
 		updatedAt: yup.date().notRequired(),
+		user: userResponseSerializer,
+		category: categoryResponseSerializer
 	});
 
 export const listAllPostsSerializer: SchemaOf<iPostCategoryListResponse[]> =

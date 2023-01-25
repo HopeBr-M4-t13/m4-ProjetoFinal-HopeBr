@@ -1,8 +1,9 @@
 import AppDataSource from "../../data-source";
 import { Post } from "../../entities/post.entity";
-import { iPostListResponse, iPostResponse } from "../../interfaces/posts/posts.interface";
+import { iPostCategoryListResponse, iPostListResponse, iPostResponse } from "../../interfaces/posts/posts.interface";
+import { postCategoryListSerializerResponse } from "../../serializers/post.serializer";
 
-const listPostService = async (): Promise<iPostResponse[]> => {
+const listPostService = async () => {
 
   const postRepo = AppDataSource.getRepository(Post)
 
@@ -16,11 +17,14 @@ const listPostService = async (): Promise<iPostResponse[]> => {
       updatedAt: true      
     },
     relations: {
-      category: true 
-    },
-  })
+      category: true,
+      user:true
+    }
+  })  
 
-  
+  const listPostsToReturn = postCategoryListSerializerResponse.validate(listPosts, {
+    stripUnknown: false,
+  });
   
   return listPosts
 }

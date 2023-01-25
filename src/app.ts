@@ -8,9 +8,11 @@ import donationRoutes from "./routes/donations.routes"
 import postRoutes from "./routes/posts.routes"
 import categoryRoutes from "./routes/category.routes"
 import profileRoutes from "./routes/profile.route"
+import cors from 'cors'
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 app.use("/users", userRoutes)
 app.use("/session", sessionRoutes)
